@@ -61,20 +61,29 @@ class Url
     protected $priority = null;
 
 
+    /**
+     * Sets the object location.
+     *
+     * @note The string is escaped.
+     * @see http://www.sitemaps.org/protocol.html#escaping
+     *
+     * @param string $loc The location. Must be less than 2,048 chars.
+     *
+     * @return Url For fluent interface
+     */
     public function setLoc($loc)
     {
         if (strlen($loc) > 2048) {
             throw new \DomainException('The loc value must be less than 2,048 characters');
         }
 
-        $this->loc = $loc;
+        $this->loc = htmlspecialchars($loc, ENT_QUOTES);
 
         return $this;
     }
 
     public function getLoc()
     {
-        // @todo: escaping?
         return $this->loc;
     }
 
