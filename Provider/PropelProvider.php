@@ -8,6 +8,28 @@ use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Sitemap\Sitemap;
 
 
+/**
+ * Populate a sitemap using a Propel model.
+ *
+ * The options available are the following:
+ *  * model: the model to use (FQCN)
+ *  * filters: array of method to apply on the query
+ *  * loc: array describing how to generate an URL with the router
+ *  * lastmod: name of the lastmod attribute (can be null)
+ *  * priority: the priority to apply to all the elements (can be null)
+ *  * changefreq: the changefreq to apply to all the elements (can be null)
+ *
+ * Exemple:
+ *  array(
+ *      'model'     => 'Acme/Model/News',
+ *      'filters'   => array('filterByIsValid'),
+ *      'lastmod'   => 'updatedAt',
+ *      'priority'  => 0.6,
+ *      'loc'       => array('route' => 'show_news', 'params' => array('id' => 'slug')),
+ *  )
+ *
+ * @note This provider uses an "on demand" hydration.
+ */
 class PropelProvider implements ProviderInterface
 {
     protected $router = null;
@@ -22,7 +44,13 @@ class PropelProvider implements ProviderInterface
     );
 
 
-    public function __construct(RouterInterface $router, $options)
+    /**
+     * Constructor
+     *
+     * @param RouterInterface $router The application router.
+     * @param array $options The options (see the class comment).
+     */
+    public function __construct(RouterInterface $router, array $options)
     {
         $this->router = $router;
         $this->options = array_merge($this->options, $options);
@@ -32,6 +60,11 @@ class PropelProvider implements ProviderInterface
         }
     }
 
+    /**
+     * Populate a sitemap using a Propel model.
+     *
+     * @param Sitemap $sitemap The current sitemap.
+     */
     public function populate(Sitemap $sitemap)
     {
         $query = $this->getQuery($this->options['model']);

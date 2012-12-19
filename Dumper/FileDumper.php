@@ -3,17 +3,30 @@
 namespace KPhoen\SitemapBundle\Dumper;
 
 
+/**
+ * Dump the sitemap into a file.
+ *
+ * @see KPhoen\SitemapBundle\Dumper\GzFileDumper
+ */
 class FileDumper implements DumperInterface
 {
     protected $filename = null;
     protected $handle = null;
 
 
+    /**
+     * Constructor.
+     *
+     * @param string $filename The filename. Must be acessible in write mode.
+     */
     public function __construct($filename)
     {
         $this->filename = $filename;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function dump($string)
     {
         if ($this->handle == null) {

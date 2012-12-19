@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
 
+/**
+ * Add all the services tagged "sitemap.provider" to the sitemap.
+ */
 class UrlProviderCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
