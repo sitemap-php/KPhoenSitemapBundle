@@ -13,12 +13,14 @@ class Sitemap
     protected $providers = array();
     protected $dumper = null;
     protected $formatter = null;
+    protected $base_host = null;
 
 
-    public function __construct(DumperInterface $dumper, FormatterInterface $formatter)
+    public function __construct(DumperInterface $dumper, FormatterInterface $formatter, $base_host = null)
     {
         $this->dumper = $dumper;
         $this->formatter = $formatter;
+        $this->base_host = $base_host;
     }
 
     public function addProvider(ProviderInterface $provider)
@@ -60,6 +62,10 @@ class Sitemap
         $loc = $url->getLoc();
         if (empty($loc)) {
             throw new \InvalidArgumentException('The url MUST have a loc attribute');
+        }
+
+        if ($this->base_host !== null && substr($loc, 0, 4) !== 'http') {
+            $url->setLoc($this->base_host.$loc);
         }
 
         $this->dumper->dump($this->formatter->formatUrl($url));

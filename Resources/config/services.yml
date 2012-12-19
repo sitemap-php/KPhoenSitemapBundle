@@ -7,4 +7,4 @@ services:
 
     sitemap:
         class:      KPhoen\SitemapBundle\Sitemap\Sitemap
-        arguments:  [ @sitemap_dumper, @sitemap_formatter ]
+        arguments:  [ @sitemap_dumper, @sitemap_formatter, %sitemap.config.base_host% ]
