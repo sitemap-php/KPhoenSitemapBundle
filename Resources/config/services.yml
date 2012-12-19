@@ -1,0 +1,10 @@
+services:
+    sitemap_dumper:
+        class:      KPhoen\SitemapBundle\Dumper\MemoryDumper
+
+    sitemap_formatter:
+        class:      KPhoen\SitemapBundle\Formatter\XmlFormatter
+
+    sitemap:
+        class:      KPhoen\SitemapBundle\Sitemap\Sitemap
+        arguments:  [ @sitemap_dumper, @sitemap_formatter ]
