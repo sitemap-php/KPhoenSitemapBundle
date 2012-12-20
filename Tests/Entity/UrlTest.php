@@ -7,12 +7,6 @@ use KPhoen\SitemapBundle\Entity\Url;
 
 class UrlTest extends \PHPUnit_Framework_TestCase
 {
-    public static function setUpBeforeClass()
-    {
-        // avoid test "false negatives" due to the timezone
-        ini_set('date.timezone', 'Europe/Paris');
-    }
-
     /**
      * @dataProvider locProvider
      */
@@ -80,9 +74,9 @@ class UrlTest extends \PHPUnit_Framework_TestCase
         return array(
             array(null, null, null),
             array(null, Url::CHANGEFREQ_YEARLY, null),
-            array('2012-12-20 18:44', null, '2012-12-20T18:44:00+01:00'),
-            array('2012-12-20 18:44', Url::CHANGEFREQ_HOURLY, '2012-12-20T18:44:00+01:00'),
-            array('2012-12-20 18:44', Url::CHANGEFREQ_ALWAYS, '2012-12-20T18:44:00+01:00'),
+            array('2012-12-20 18:44', null, $this->dateFormatW3C('2012-12-20 18:44')),
+            array('2012-12-20 18:44', Url::CHANGEFREQ_HOURLY, $this->dateFormatW3C('2012-12-20 18:44')),
+            array('2012-12-20 18:44', Url::CHANGEFREQ_ALWAYS, $this->dateFormatW3C('2012-12-20 18:44')),
             array('2012-12-20 18:44', Url::CHANGEFREQ_DAILY, '2012-12-20'),
         );
     }
@@ -120,5 +114,11 @@ class UrlTest extends \PHPUnit_Framework_TestCase
             array('http://www.google.com/search=Linux > Windows', 'http://www.google.com/search=Linux &gt; Windows'),
             array('http://www.google.com/search=Mac < Linux', 'http://www.google.com/search=Mac &lt; Linux'),
         );
+    }
+
+    protected function dateFormatW3C($date)
+    {
+        $date = new \DateTime($date);
+        return $date->format(\DateTime::W3C);
     }
 }
