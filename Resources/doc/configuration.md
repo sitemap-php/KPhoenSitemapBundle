@@ -20,6 +20,7 @@ Exemple provider:
 namespace KPhoen\SitemapBundle\Provider;
 
 use KPhoen\SitemapBundle\Entity\Url;
+use KPhoen\SitemapBundle\Provider\ProviderInterface;
 use KPhoen\SitemapBundle\Sitemap\Sitemap;
 
 
