@@ -16,5 +16,11 @@ class TestProvider implements ProviderInterface
         $url->setChangefreq(Url::CHANGEFREQ_NEVER);
         $url->setLastmod('2012-12-19 02:28');
         $sitemap->add($url);
+
+        $url = new Url();
+        $url->setLoc('http://github.com');
+        $url->setChangefreq(Url::CHANGEFREQ_ALWAYS);
+        $url->setPriority(0.2);
+        $sitemap->add($url);
     }
 }
