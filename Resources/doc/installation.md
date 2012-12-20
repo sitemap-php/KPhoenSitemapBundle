@@ -31,6 +31,10 @@ k_phoen_sitemap:
     base_host: http://www.foo.com
 ```
 
+**Note:**
+
+> The `base_host` will be prepended to relative urls added to the sitemap.
+
 ### Routing
 
 If you don't want to use the console to generate the sitemap, immport the
@@ -42,3 +46,8 @@ kphoen_sitemap:
 ```
 
 This will make the sitemap available from the `/sitemap.xml` URL.
+
+
+## Next steps
+
+[Return to the index](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/index.md) or [configure your sitemap](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/configuration.md)

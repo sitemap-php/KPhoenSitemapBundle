@@ -1,8 +1,8 @@
 KPhoenSitemapBundle
 ===================
 
-The KPhoenSitemapBundle provides a way to create a xml sitemap using whatever
-source you want (Doctrine, Propel, MongoDB, Faker, etc.).
+The KPhoenSitemapBundle provides a way to create a xml sitemap using any source
+you want (Doctrine, Propel, MongoDB, Faker, etc.).
 
 This bundle aims to generate standards compliant sitemaps. For more information
 about sitemaps go to [sitemaps.org](http://www.sitemaps.org/).
@@ -31,4 +31,4 @@ All the installation instructions are in the [documentation](https://github.com/
 License
 -------
 
-This bundle is under the [MIT](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/meta/LICENSE).
+This bundle is under the [MIT](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/meta/LICENCE) licence.
