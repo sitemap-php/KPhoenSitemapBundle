@@ -89,7 +89,7 @@ class Url
 
     public function setLastmod($lastmod)
     {
-        if (!$lastmod instanceof \DateTime) {
+        if ($lastmod !== null && !$lastmod instanceof \DateTime) {
             $lastmod = new \DateTime($lastmod);
         }
 
@@ -116,7 +116,7 @@ class Url
         $valid_freqs = array(
             self::CHANGEFREQ_ALWAYS, self::CHANGEFREQ_HOURLY, self::CHANGEFREQ_DAILY,
             self::CHANGEFREQ_WEEKLY, self::CHANGEFREQ_MONTHLY, self::CHANGEFREQ_YEARLY,
-            self::CHANGEFREQ_NEVER
+            self::CHANGEFREQ_NEVER, null
         );
 
         if (!in_array($changefreq, $valid_freqs)) {
