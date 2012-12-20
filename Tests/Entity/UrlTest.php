@@ -7,6 +7,12 @@ use KPhoen\SitemapBundle\Entity\Url;
 
 class UrlTest extends \PHPUnit_Framework_TestCase
 {
+    public static function setUpBeforeClass()
+    {
+        // avoid test "false negatives" due to the timezone
+        ini_set('date.timezone', 'Europe/Paris');
+    }
+
     /**
      * @dataProvider locProvider
      */
