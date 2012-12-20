@@ -1,0 +1,5 @@
+services:
+    sitemap_test_provider:
+        class: KPhoen\SitemapBundle\Tests\Fixtures\Provider\TestProvider
+        tags:
+            -  { name: sitemap.provider }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div id="content">
+    {% if app.session.hasFlash('error') %}
+        <div class="flash error">
+            {{ app.session.flash('error') }}
+        </div>
+    {% endif %}
+
+    {% if app.session.hasFlash('success') %}
+        <div class="flash success">
+            {{ app.session.flash('success') }}
+        </div>
+    {% endif %}
+
+    {% if app.session.hasFlash('notice') %}
+        <div class="flash notice">
+            {{ app.session.flash('notice') }}
+        </div>
+    {% endif %}
+
+    {% block body %}{% endblock %}
+</div> <!-- end of content -->
+</body>
+</html>
