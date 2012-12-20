@@ -1,6 +1,7 @@
 services:
     sitemap_dumper:
-        class:      KPhoen\SitemapBundle\Dumper\MemoryDumper
+        class:      KPhoen\SitemapBundle\Dumper\GzFileDumper
+        arguments:  [ %kernel.root_dir%/../web/sitemap.xml.gz ]
 
     sitemap_formatter:
         class:      KPhoen\SitemapBundle\Formatter\XmlFormatter
