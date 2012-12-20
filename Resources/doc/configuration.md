@@ -81,3 +81,9 @@ services:
         tags:
             -  { name: sitemap.provider }
 ```
+
+
+## Next steps
+
+[Return to the index](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/index.md)
+or [go further](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/more.md)
