@@ -3,3 +3,10 @@ services:
         class: KPhoen\SitemapBundle\Tests\Fixtures\Provider\TestProvider
         tags:
             -  { name: sitemap.provider }
+
+    sitemap_memory_dumper:
+        class:      KPhoen\SitemapBundle\Dumper\MemoryDumper
+
+    sitemap:
+        class:      KPhoen\SitemapBundle\Sitemap\Sitemap
+        arguments:  [ @sitemap_memory_dumper, @sitemap_xml_formatter, %sitemap.config.base_host% ]
