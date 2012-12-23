@@ -32,3 +32,10 @@ services:
         class:      KPhoen\SitemapBundle\Sitemap\Sitemap
         arguments:  [ @sitemap_gz_dumper, @sitemap_text_formatter, %sitemap.config.base_host% ]
 ```
+
+### Images and videos
+
+Images and videos are two objects that are embeddable in sitemaps, and
+fortunately, this bundle supports both of them.
+
+Just look the [Image](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Entity/Image.php) and [Video](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Entity/Video.php) class to know how to use them.
