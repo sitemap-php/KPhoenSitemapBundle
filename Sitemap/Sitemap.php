@@ -96,12 +96,53 @@ class Sitemap
             throw new \InvalidArgumentException('The url MUST have a loc attribute');
         }
 
-        if ($this->base_host !== null && substr($loc, 0, 4) !== 'http') {
-            $url->setLoc($this->base_host.$loc);
+        if ($this->base_host !== null) {
+            if ($this->needHost($loc)) {
+                $url->setLoc($this->base_host.$loc);
+            }
+
+            foreach ($url->getVideos() as $video) {
+                if ($this->needHost($video->getThumbnailLoc())) {
+                    $video->setThumbnailLoc($this->base_host.$video->getThumbnailLoc());
+                }
+
+                if ($this->needHost($video->getContentLoc())) {
+                    $video->setContentLoc($this->base_host.$video->getContentLoc());
+                }
+
+                $player = $video->getPlayerLoc();
+                if ($player !== null && $this->needHost($player['loc'])) {
+                    $video->setPlayerLoc($this->base_host.$player['loc'], $player['allow_embed'], $player['autoplay']);
+                }
+
+                $gallery = $video->getGalleryLoc();
+                if ($gallery !== null && $this->needHost($gallery['loc'])) {
+                    $video->setGalleryLoc($this->base_host.$gallery['loc'], $gallery['title']);
+                }
+            }
+
+            foreach ($url->getImages() as $image) {
+                if ($this->needHost($image->getLoc())) {
+                    $image->setLoc($this->base_host.$image->getLoc());
+                }
+
+                if ($this->needHost($image->getLicense())) {
+                    $image->setLicense($this->base_host.$image->getLicense());
+                }
+            }
         }
 
         $this->dumper->dump($this->formatter->formatUrl($url));
 
         return $this;
+    }
+
+    protected function needHost($url)
+    {
+        if ($url === null) {
+            return false;
+        }
+
+        return substr($url, 0, 4) !== 'http';
     }
 }
