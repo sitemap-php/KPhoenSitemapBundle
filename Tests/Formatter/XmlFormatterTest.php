@@ -2,6 +2,7 @@
 
 namespace KPhoen\SitemapBundle\Tests\Formatter;
 
+use KPhoen\SitemapBundle\Entity\Image;
 use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\Video;
 use KPhoen\SitemapBundle\Formatter\XmlFormatter;
@@ -21,7 +22,7 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
     public function testSitemapStart()
     {
         $formatter = new XmlFormatter();
-        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'."\n", $formatter->getSitemapStart());
+        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n", $formatter->getSitemapStart());
     }
 
     public function testSitemapEnd()
@@ -89,6 +90,32 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
 "\t\t<video:player_loc allow_embed=\"yes\" autoplay=\"ap=1\">http://www.example.com/videoplayer.swf?video=123</video:player_loc>\n".
 "\t\t<video:duration>600</video:duration>\n".
 "\t</video:video>\n".
+"</url>\n", $formatter->formatUrl($url));
+    }
+
+    public function testFormatUrlWithImage()
+    {
+        $formatter = new XmlFormatter();
+
+        $url = new Url();
+        $url->setLoc('http://www.google.fr');
+        $url->setPriority(0.2);
+        $url->setChangefreq(Url::CHANGEFREQ_NEVER);
+
+        $image = new Image();
+        $image->setLoc('http://www.example.com/thumbs/123.jpg');
+        $image->setTitle('Grilling steaks for summer');
+
+        $url->addImage($image);
+
+        $this->assertEquals("<url>\n".
+"\t<loc>http://www.google.fr</loc>\n".
+"\t<changefreq>never</changefreq>\n".
+"\t<priority>0.2</priority>\n".
+"\t<image:image>\n".
+"\t\t<image:loc>http://www.example.com/thumbs/123.jpg</image:loc>\n".
+"\t\t<image:title>Grilling steaks for summer</image:title>\n".
+"\t</image:image>\n".
 "</url>\n", $formatter->formatUrl($url));
     }
 
@@ -180,6 +207,38 @@ sprintf("\t\t<video:expiration_date>%s</video:expiration_date>\n", $this->dateFo
 "\t\t<video:platform relationship=\"allow\">web</video:platform>\n".
 "\t\t<video:live>no</video:live>\n".
 "\t</video:video>\n", $formatter->testFormatVideo($video));
+    }
+
+    public function testFormatUrlWithFullImage()
+    {
+        $formatter = new XmlFormatter();
+
+        $url = new Url();
+        $url->setLoc('http://www.google.fr');
+        $url->setPriority(0.2);
+        $url->setChangefreq(Url::CHANGEFREQ_NEVER);
+
+        $image = new Image();
+        $image->setLoc('http://www.example.com/thumbs/123.jpg');
+        $image->setTitle('Grilling steaks for summer');
+        $image->setCaption('Some caption');
+        $image->setLicense('http://opensource.org/licenses/mit-license.php');
+        $image->setGeoLocation('France');
+
+        $url->addImage($image);
+
+        $this->assertEquals("<url>\n".
+"\t<loc>http://www.google.fr</loc>\n".
+"\t<changefreq>never</changefreq>\n".
+"\t<priority>0.2</priority>\n".
+"\t<image:image>\n".
+"\t\t<image:loc>http://www.example.com/thumbs/123.jpg</image:loc>\n".
+"\t\t<image:caption>Some caption</image:caption>\n".
+"\t\t<image:geo_location>France</image:geo_location>\n".
+"\t\t<image:title>Grilling steaks for summer</image:title>\n".
+"\t\t<image:license>http://opensource.org/licenses/mit-license.php</image:license>\n".
+"\t</image:image>\n".
+"</url>\n", $formatter->formatUrl($url));
     }
 
 

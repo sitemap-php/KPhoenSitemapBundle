@@ -60,7 +60,15 @@ class Url
      */
     protected $priority = null;
 
+    /**
+     * Videos related to this entry.
+     */
     protected $videos = array();
+
+    /**
+     * Images related to this entry.
+     */
+    protected $images = array();
 
 
     /**
@@ -168,5 +176,22 @@ class Url
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+        return $this;
+    }
+
+    public function setImages($images)
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
     }
 }

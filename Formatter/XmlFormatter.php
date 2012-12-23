@@ -2,6 +2,7 @@
 
 namespace KPhoen\SitemapBundle\Formatter;
 
+use KPhoen\SitemapBundle\Entity\Image;
 use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\Video;
 
@@ -10,7 +11,9 @@ class XmlFormatter implements FormatterInterface
 {
     public function getSitemapStart()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">' . "\n";
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
+              'xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" '.
+              'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
     }
 
     public function getSitemapEnd()
@@ -38,6 +41,10 @@ class XmlFormatter implements FormatterInterface
 
         foreach ($url->getVideos() as $video) {
             $buffer .= $this->formatVideo($video);
+        }
+
+        foreach ($url->getImages() as $image) {
+            $buffer .= $this->formatImage($image);
         }
 
         return $buffer . '</url>' . "\n";
@@ -133,5 +140,30 @@ class XmlFormatter implements FormatterInterface
         }
 
         return $buffer . "\t" . '</video:video>' . "\n";
+    }
+
+    protected function formatImage(Image $image)
+    {
+        $buffer = "\t" . '<image:image>' . "\n";
+
+        $buffer .= "\t\t" . '<image:loc>' . $image->getLoc() . '</image:loc>' . "\n";
+
+        if ($image->getCaption() !== null) {
+            $buffer .= "\t\t" . '<image:caption>' . $image->getCaption() . '</image:caption>' . "\n";
+        }
+
+        if ($image->getGeoLocation() !== null) {
+            $buffer .= "\t\t" . '<image:geo_location>' . $image->getGeoLocation() . '</image:geo_location>' . "\n";
+        }
+
+        if ($image->getTitle() !== null) {
+            $buffer .= "\t\t" . '<image:title>' . $image->getTitle() . '</image:title>' . "\n";
+        }
+
+        if ($image->getLicense() !== null) {
+            $buffer .= "\t\t" . '<image:license>' . $image->getLicense() . '</image:license>' . "\n";
+        }
+
+        return $buffer . "\t" . '</image:image>' . "\n";
     }
 }
