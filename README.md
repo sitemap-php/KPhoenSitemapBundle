@@ -11,10 +11,11 @@ about sitemaps go to [sitemaps.org](http://www.sitemaps.org/).
 Main features
 -------------
 
-  * static sitemap generation ;
-  * dynamic sitemap generation ;
-  * memory efficient ;
-  * datasource independant.
+  * static sitemap generation
+  * dynamic sitemap generation
+  * memory efficient
+  * datasource independant
+  * support for media content (currently images and videos)
 
 Documentation
 -------------
