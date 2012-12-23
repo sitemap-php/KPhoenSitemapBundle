@@ -8,7 +8,7 @@ namespace KPhoen\SitemapBundle\Entity;
  *
  * @see https://developers.google.com/webmasters/videosearch/sitemaps
  */
-class Video
+class Video extends BaseEntity
 {
     const RESTRICTION_DENY  = 'deny';
     const RESTRICTION_ALLOW = 'allow';
@@ -157,7 +157,7 @@ class Video
             throw new \DomainException('The title value must be less than 100 characters');
         }
 
-        $this->title = $title;
+        $this->title = $this->escape($title);
         return $this;
     }
 
@@ -168,7 +168,7 @@ class Video
 
     public function setThumbnailLoc($loc)
     {
-        $this->thumbnail_loc = $loc;
+        $this->thumbnail_loc = $this->escape($loc);
         return $this;
     }
 
@@ -183,7 +183,7 @@ class Video
             throw new \DomainException('The description value must be less than 2,048 characters');
         }
 
-        $this->description = $description;
+        $this->description = $this->escape($description);
         return $this;
     }
 
@@ -194,7 +194,7 @@ class Video
 
     public function setContentLoc($loc)
     {
-        $this->content_loc = $loc;
+        $this->content_loc = $this->escape($loc);
         return $this;
     }
 
@@ -203,8 +203,6 @@ class Video
         return $this->content_loc;
     }
 
-    //@todo handle $autoplay escaping
-    //@todo handle $loc escaping
     public function setPlayerLoc($loc, $allow_embed = true, $autoplay = null)
     {
         if ($loc === null)
@@ -214,9 +212,9 @@ class Video
         }
 
         $this->player_loc = array(
-            'loc'           => $loc,
+            'loc'           => $this->escape($loc),
             'allow_embed'   => $allow_embed,
-            'autoplay'      => $autoplay,
+            'autoplay'      => $autoplay !== null ? $this->escape($autoplay) : null,
         );
         return $this;
     }
@@ -337,7 +335,7 @@ class Video
             throw new \DomainException('A maximum of 32 tags is allowed.');
         }
 
-        $this->tags = $tags;
+        $this->tags = array_map(array($this, 'escape'), $tags);
         return $this;
     }
 
@@ -352,7 +350,7 @@ class Video
             throw new \DomainException('The category value must be less than 256 characters');
         }
 
-        $this->category = $category;
+        $this->category = $this->escape($category);
         return $this;
     }
 
@@ -393,8 +391,8 @@ class Video
         }
 
         $this->gallery_loc = array(
-            'loc'   => $loc,
-            'title' => $title
+            'loc'   => $this->escape($loc),
+            'title' => $title !== null ? $this->escape($title) : null
         );
 
         return $this;
@@ -424,8 +422,8 @@ class Video
         }
 
         $this->uploader = array(
-            'name' => $uploader,
-            'info' => $info
+            'name' => $this->escape($uploader),
+            'info' => $info !== null ? $this->escape($info) : null,
         );
         return $this;
     }

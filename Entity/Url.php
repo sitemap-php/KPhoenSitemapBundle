@@ -8,7 +8,7 @@ namespace KPhoen\SitemapBundle\Entity;
  *
  * @see http://www.sitemaps.org/protocol.html
  */
-class Url
+class Url extends BaseEntity
 {
     /**
      * Page change frequency constants.
@@ -87,7 +87,7 @@ class Url
             throw new \DomainException('The loc value must be less than 2,048 characters');
         }
 
-        $this->loc = htmlspecialchars($loc, ENT_QUOTES);
+        $this->loc = $this->escape($loc);
 
         return $this;
     }
