@@ -60,6 +60,8 @@ class Url
      */
     protected $priority = null;
 
+    protected $videos = array();
+
 
     /**
      * Sets the object location.
@@ -120,7 +122,7 @@ class Url
         );
 
         if (!in_array($changefreq, $valid_freqs)) {
-            throw new \DomainException(sprintf('Invalid changefreq given. Valid values are: %s', implode($valid_freqs)));
+            throw new \DomainException(sprintf('Invalid changefreq given. Valid values are: %s', implode(', ', $valid_freqs)));
         }
 
         $this->changefreq = $changefreq;
@@ -149,5 +151,22 @@ class Url
     public function getPriority()
     {
         return $this->priority;
+    }
+
+    public function addVideo(Video $video)
+    {
+        $this->videos[] = $video;
+        return $this;
+    }
+
+    public function setVideos($videos)
+    {
+        $this->videos = $videos;
+        return $this;
+    }
+
+    public function getVideos()
+    {
+        return $this->videos;
     }
 }
