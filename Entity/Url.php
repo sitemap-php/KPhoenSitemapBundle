@@ -8,7 +8,7 @@ namespace KPhoen\SitemapBundle\Entity;
  *
  * @see http://www.sitemaps.org/protocol.html
  */
-class Url extends BaseEntity
+class Url
 {
     /**
      * Page change frequency constants.
@@ -74,7 +74,6 @@ class Url extends BaseEntity
     /**
      * Sets the object location.
      *
-     * @note The string is escaped.
      * @see http://www.sitemaps.org/protocol.html#escaping
      *
      * @param string $loc The location. Must be less than 2,048 chars.
@@ -87,7 +86,7 @@ class Url extends BaseEntity
             throw new \DomainException('The loc value must be less than 2,048 characters');
         }
 
-        $this->loc = $this->escape($loc);
+        $this->loc = $loc;
 
         return $this;
     }

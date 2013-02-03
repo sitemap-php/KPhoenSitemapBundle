@@ -7,7 +7,7 @@ use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\Video;
 
 
-class XmlFormatter implements FormatterInterface
+class XmlFormatter extends BaseFormatter implements FormatterInterface
 {
     public function getSitemapStart()
     {
@@ -25,18 +25,18 @@ class XmlFormatter implements FormatterInterface
     {
         $buffer = '<url>' . "\n";
 
-        $buffer .= "\t" . '<loc>' . $url->getLoc() . '</loc>' . "\n";
+        $buffer .= "\t" . '<loc>' . $this->escape($url->getLoc()) . '</loc>' . "\n";
 
         if ($url->getLastmod() !== null) {
-            $buffer .= "\t" . '<lastmod>' . $url->getLastmod() .'</lastmod>' . "\n";
+            $buffer .= "\t" . '<lastmod>' . $this->escape($url->getLastmod()) .'</lastmod>' . "\n";
         }
 
         if ($url->getChangefreq() !== null) {
-            $buffer .= "\t" . '<changefreq>' . $url->getChangefreq() .'</changefreq>' . "\n";
+            $buffer .= "\t" . '<changefreq>' . $this->escape($url->getChangefreq()) .'</changefreq>' . "\n";
         }
 
         if ($url->getPriority() !== null) {
-            $buffer .= "\t" . '<priority>' . $url->getPriority() .'</priority>' . "\n";
+            $buffer .= "\t" . '<priority>' . $this->escape($url->getPriority()) .'</priority>' . "\n";
         }
 
         foreach ($url->getVideos() as $video) {
@@ -54,40 +54,40 @@ class XmlFormatter implements FormatterInterface
     {
         $buffer = "\t" . '<video:video>' . "\n";
 
-        $buffer .= "\t\t" . '<video:title>' . $video->getTitle() . '</video:title>' . "\n";
-        $buffer .= "\t\t" . '<video:description>' . $video->getDescription() . '</video:description>' . "\n";
-        $buffer .= "\t\t" . '<video:thumbnail_loc>' . $video->getThumbnailLoc() . '</video:thumbnail_loc>' . "\n";
+        $buffer .= "\t\t" . '<video:title>' . $this->escape($video->getTitle()) . '</video:title>' . "\n";
+        $buffer .= "\t\t" . '<video:description>' . $this->escape($video->getDescription()) . '</video:description>' . "\n";
+        $buffer .= "\t\t" . '<video:thumbnail_loc>' . $this->escape($video->getThumbnailLoc()) . '</video:thumbnail_loc>' . "\n";
 
         if ($video->getContentLoc() !== null) {
-            $buffer .= "\t\t" . '<video:content_loc>' . $video->getContentLoc() . '</video:content_loc>' . "\n";
+            $buffer .= "\t\t" . '<video:content_loc>' . $this->escape($video->getContentLoc()) . '</video:content_loc>' . "\n";
         }
 
         if ($video->getPlayerLoc() !== null) {
             $player_loc = $video->getPlayerLoc();
             $allow_embed = $player_loc['allow_embed'] ? 'yes' : 'no';
-            $autoplay = $player_loc['autoplay'] !== null ? sprintf(' autoplay="%s"', $player_loc['autoplay']) : '';
+            $autoplay = $player_loc['autoplay'] !== null ? sprintf(' autoplay="%s"', $this->escape($player_loc['autoplay'])) : '';
 
-            $buffer .= "\t\t" . sprintf('<video:player_loc allow_embed="%s"%s>', $allow_embed, $autoplay) . $player_loc['loc'] . '</video:player_loc>' . "\n";
+            $buffer .= "\t\t" . sprintf('<video:player_loc allow_embed="%s"%s>', $allow_embed, $autoplay) . $this->escape($player_loc['loc']) . '</video:player_loc>' . "\n";
         }
 
         if ($video->getDuration() !== null) {
-            $buffer .= "\t\t" . '<video:duration>' . $video->getDuration() . '</video:duration>' . "\n";
+            $buffer .= "\t\t" . '<video:duration>' . $this->escape($video->getDuration()) . '</video:duration>' . "\n";
         }
 
         if ($video->getExpirationDate() !== null) {
-            $buffer .= "\t\t" . '<video:expiration_date>' . $video->getExpirationDate() . '</video:expiration_date>' . "\n";
+            $buffer .= "\t\t" . '<video:expiration_date>' . $this->escape($video->getExpirationDate()) . '</video:expiration_date>' . "\n";
         }
 
         if ($video->getRating() !== null) {
-            $buffer .= "\t\t" . '<video:rating>' . $video->getRating() . '</video:rating>' . "\n";
+            $buffer .= "\t\t" . '<video:rating>' . $this->escape($video->getRating()) . '</video:rating>' . "\n";
         }
 
         if ($video->getViewCount() !== null) {
-            $buffer .= "\t\t" . '<video:view_count>' . $video->getViewCount() . '</video:view_count>' . "\n";
+            $buffer .= "\t\t" . '<video:view_count>' . $this->escape($video->getViewCount()) . '</video:view_count>' . "\n";
         }
 
         if ($video->getPublicationDate() !== null) {
-            $buffer .= "\t\t" . '<video:publication_date>' . $video->getPublicationDate() . '</video:publication_date>' . "\n";
+            $buffer .= "\t\t" . '<video:publication_date>' . $this->escape($video->getPublicationDate()) . '</video:publication_date>' . "\n";
         }
 
         if ($video->getFamilyFriendly() === false) {
@@ -96,26 +96,26 @@ class XmlFormatter implements FormatterInterface
 
         if ($video->getTags() !== null) {
             foreach ($video->getTags() as $tag) {
-                $buffer .= "\t\t" . '<video:tag>' . $tag . '</video:tag>' . "\n";
+                $buffer .= "\t\t" . '<video:tag>' . $this->escape($tag) . '</video:tag>' . "\n";
             }
         }
 
         if ($video->getCategory() !== null) {
-            $buffer .= "\t\t" . '<video:category>' . $video->getCategory() . '</video:category>' . "\n";
+            $buffer .= "\t\t" . '<video:category>' . $this->escape($video->getCategory()) . '</video:category>' . "\n";
         }
 
         if ($video->getRestrictions() !== null) {
             $restrictions = $video->getRestrictions();
-            $relationship = $restrictions['relationship'];
+            $relationship = $this->escape($restrictions['relationship']);
 
-            $buffer .= "\t\t" . '<video:restriction relationship="' . $relationship . '">'. implode(' ', $restrictions['countries']) . '</video:restriction>' . "\n";
+            $buffer .= "\t\t" . '<video:restriction relationship="' . $relationship . '">'. $this->escape(implode(' ', $restrictions['countries'])) . '</video:restriction>' . "\n";
         }
 
         if ($video->getGalleryLoc() !== null) {
             $gallery_loc = $video->getGalleryLoc();
-            $title = $gallery_loc['title'] !== null ? sprintf(' title="%s"', $gallery_loc['title']) : '';
+            $title = $gallery_loc['title'] !== null ? sprintf(' title="%s"', $this->escape($gallery_loc['title'])) : '';
 
-            $buffer .= "\t\t" . sprintf('<video:gallery_loc%s>', $title) . $gallery_loc['loc'] . '</video:gallery_loc>' . "\n";
+            $buffer .= "\t\t" . sprintf('<video:gallery_loc%s>', $title) . $this->escape($gallery_loc['loc']) . '</video:gallery_loc>' . "\n";
         }
 
         if ($video->getRequiresSubscription() !== null) {
@@ -124,14 +124,14 @@ class XmlFormatter implements FormatterInterface
 
         if ($video->getUploader() !== null) {
             $uploader = $video->getUploader();
-            $info = $uploader['info'] !== null ? sprintf(' info="%s"', $uploader['info']) : '';
+            $info = $uploader['info'] !== null ? sprintf(' info="%s"', $this->escape($uploader['info'])) : '';
 
-            $buffer .= "\t\t" . sprintf('<video:uploader%s>', $info) . $uploader['name'] . '</video:uploader>' . "\n";
+            $buffer .= "\t\t" . sprintf('<video:uploader%s>', $info) . $this->escape($uploader['name']) . '</video:uploader>' . "\n";
         }
 
         if ($video->getPlatforms() !== null) {
             foreach ($video->getPlatforms() as $platform => $relationship) {
-                $buffer .= "\t\t" . '<video:platform relationship="' . $relationship . '">'. $platform . '</video:platform>' . "\n";
+                $buffer .= "\t\t" . '<video:platform relationship="' . $this->escape($relationship) . '">'. $this->escape($platform) . '</video:platform>' . "\n";
             }
         }
 
@@ -146,22 +146,22 @@ class XmlFormatter implements FormatterInterface
     {
         $buffer = "\t" . '<image:image>' . "\n";
 
-        $buffer .= "\t\t" . '<image:loc>' . $image->getLoc() . '</image:loc>' . "\n";
+        $buffer .= "\t\t" . '<image:loc>' . $this->escape($image->getLoc()) . '</image:loc>' . "\n";
 
         if ($image->getCaption() !== null) {
-            $buffer .= "\t\t" . '<image:caption>' . $image->getCaption() . '</image:caption>' . "\n";
+            $buffer .= "\t\t" . '<image:caption>' . $this->escape($image->getCaption()) . '</image:caption>' . "\n";
         }
 
         if ($image->getGeoLocation() !== null) {
-            $buffer .= "\t\t" . '<image:geo_location>' . $image->getGeoLocation() . '</image:geo_location>' . "\n";
+            $buffer .= "\t\t" . '<image:geo_location>' . $this->escape($image->getGeoLocation()) . '</image:geo_location>' . "\n";
         }
 
         if ($image->getTitle() !== null) {
-            $buffer .= "\t\t" . '<image:title>' . $image->getTitle() . '</image:title>' . "\n";
+            $buffer .= "\t\t" . '<image:title>' . $this->escape($image->getTitle()) . '</image:title>' . "\n";
         }
 
         if ($image->getLicense() !== null) {
-            $buffer .= "\t\t" . '<image:license>' . $image->getLicense() . '</image:license>' . "\n";
+            $buffer .= "\t\t" . '<image:license>' . $this->escape($image->getLicense()) . '</image:license>' . "\n";
         }
 
         return $buffer . "\t" . '</image:image>' . "\n";

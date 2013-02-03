@@ -8,7 +8,7 @@ namespace KPhoen\SitemapBundle\Entity;
  *
  * @see https://developers.google.com/webmasters/videosearch/sitemaps
  */
-class Video extends BaseEntity
+class Video
 {
     const RESTRICTION_DENY  = 'deny';
     const RESTRICTION_ALLOW = 'allow';
@@ -157,7 +157,7 @@ class Video extends BaseEntity
             throw new \DomainException('The title value must be less than 100 characters');
         }
 
-        $this->title = $this->escape($title);
+        $this->title = $title;
         return $this;
     }
 
@@ -168,7 +168,7 @@ class Video extends BaseEntity
 
     public function setThumbnailLoc($loc)
     {
-        $this->thumbnail_loc = $this->escape($loc);
+        $this->thumbnail_loc = $loc;
         return $this;
     }
 
@@ -183,7 +183,7 @@ class Video extends BaseEntity
             throw new \DomainException('The description value must be less than 2,048 characters');
         }
 
-        $this->description = $this->escape($description);
+        $this->description = $description;
         return $this;
     }
 
@@ -194,7 +194,7 @@ class Video extends BaseEntity
 
     public function setContentLoc($loc)
     {
-        $this->content_loc = $this->escape($loc);
+        $this->content_loc = $loc;
         return $this;
     }
 
@@ -212,9 +212,9 @@ class Video extends BaseEntity
         }
 
         $this->player_loc = array(
-            'loc'           => $this->escape($loc),
+            'loc'           => $loc,
             'allow_embed'   => $allow_embed,
-            'autoplay'      => $autoplay !== null ? $this->escape($autoplay) : null,
+            'autoplay'      => $autoplay !== null ? $autoplay : null,
         );
         return $this;
     }
@@ -335,7 +335,7 @@ class Video extends BaseEntity
             throw new \DomainException('A maximum of 32 tags is allowed.');
         }
 
-        $this->tags = array_map(array($this, 'escape'), $tags);
+        $this->tags = $tags;
         return $this;
     }
 
@@ -350,7 +350,7 @@ class Video extends BaseEntity
             throw new \DomainException('The category value must be less than 256 characters');
         }
 
-        $this->category = $this->escape($category);
+        $this->category = $category;
         return $this;
     }
 
@@ -391,8 +391,8 @@ class Video extends BaseEntity
         }
 
         $this->gallery_loc = array(
-            'loc'   => $this->escape($loc),
-            'title' => $title !== null ? $this->escape($title) : null
+            'loc'   => $loc,
+            'title' => $title
         );
 
         return $this;
@@ -422,8 +422,8 @@ class Video extends BaseEntity
         }
 
         $this->uploader = array(
-            'name' => $this->escape($uploader),
-            'info' => $info !== null ? $this->escape($info) : null,
+            'name' => $uploader,
+            'info' => $info,
         );
         return $this;
     }

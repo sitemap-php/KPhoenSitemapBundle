@@ -8,7 +8,7 @@ namespace KPhoen\SitemapBundle\Entity;
  *
  * @see http://support.google.com/webmasters/bin/answer.py?hl=fr&answer=178636
  */
-class Image extends BaseEntity
+class Image
 {
     /**
      * The URL of the image.
@@ -39,7 +39,7 @@ class Image extends BaseEntity
 
     public function setLoc($loc)
     {
-        $this->loc = $this->escape($loc);
+        $this->loc = $loc;
         return $this;
     }
 
@@ -50,7 +50,7 @@ class Image extends BaseEntity
 
     public function setCaption($caption)
     {
-        $this->caption = $this->escape($caption);
+        $this->caption = $caption;
         return $this;
     }
 
@@ -61,7 +61,7 @@ class Image extends BaseEntity
 
     public function setGeoLocation($geo_location)
     {
-        $this->geo_location = $this->escape($geo_location);
+        $this->geo_location = $geo_location;
         return $this;
     }
 
@@ -72,7 +72,7 @@ class Image extends BaseEntity
 
     public function setTitle($title)
     {
-        $this->title = $this->escape($title);
+        $this->title = $title;
         return $this;
     }
 
@@ -83,7 +83,7 @@ class Image extends BaseEntity
 
     public function setLicense($license)
     {
-        $this->license = $this->escape($license);
+        $this->license = $license;
         return $this;
     }
 

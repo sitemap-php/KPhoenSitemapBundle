@@ -11,7 +11,7 @@ use KPhoen\SitemapBundle\Entity\Url;
  *
  * @see http://www.sitemaps.org/protocol.html#otherformats
  */
-class TextFormatter implements FormatterInterface
+class TextFormatter extends BaseFormatter implements FormatterInterface
 {
     public function getSitemapStart()
     {
@@ -25,6 +25,6 @@ class TextFormatter implements FormatterInterface
 
     public function formatUrl(Url $url)
     {
-        return $url->getLoc() . "\n";
+        return $this->escape($url->getLoc()) . "\n";
     }
 }

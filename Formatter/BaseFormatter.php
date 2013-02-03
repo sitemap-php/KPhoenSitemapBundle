@@ -1,9 +1,9 @@
 <?php
 
-namespace KPhoen\SitemapBundle\Entity;
+namespace KPhoen\SitemapBundle\Formatter;
 
 
-class BaseEntity
+abstract class BaseFormatter
 {
     protected function escape($string)
     {

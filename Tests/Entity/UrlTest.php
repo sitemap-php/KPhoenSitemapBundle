@@ -8,16 +8,6 @@ use KPhoen\SitemapBundle\Entity\Url;
 class UrlTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider locProvider
-     */
-    public function testLocEscaping($loc, $escaped_loc)
-    {
-        $url = new Url();
-        $url->setLoc($loc);
-        $this->assertEquals($escaped_loc, $url->getLoc());
-    }
-
-    /**
      * @expectedException DomainException
      */
     public function testLocMaxLength()
@@ -100,19 +90,6 @@ class UrlTest extends \PHPUnit_Framework_TestCase
         return array(
             array(-0.1),
             array(1.1),
-        );
-    }
-
-    public function locProvider()
-    {
-        return array(
-            // (loc, escaped loc)
-            array('http://www.google.com', 'http://www.google.com'),
-            array('http://www.google.com/search=j\'aime les frites', 'http://www.google.com/search=j&#039;aime les frites'),
-            array('http://www.google.com/search=joe&foo=bar', 'http://www.google.com/search=joe&amp;foo=bar'),
-            array('http://www.google.com/search="hell yeah!"', 'http://www.google.com/search=&quot;hell yeah!&quot;'),
-            array('http://www.google.com/search=Linux > Windows', 'http://www.google.com/search=Linux &gt; Windows'),
-            array('http://www.google.com/search=Mac < Linux', 'http://www.google.com/search=Mac &lt; Linux'),
         );
     }
 

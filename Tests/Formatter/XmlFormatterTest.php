@@ -214,13 +214,13 @@ sprintf("\t\t<video:expiration_date>%s</video:expiration_date>\n", $this->dateFo
         $formatter = new XmlFormatter();
 
         $url = new Url();
-        $url->setLoc('http://www.google.fr');
+        $url->setLoc('http://www.google.fr/?s=joe"');
         $url->setPriority(0.2);
         $url->setChangefreq(Url::CHANGEFREQ_NEVER);
 
         $image = new Image();
         $image->setLoc('http://www.example.com/thumbs/123.jpg');
-        $image->setTitle('Grilling steaks for summer');
+        $image->setTitle('Grilling steaks for "summer"');
         $image->setCaption('Some caption');
         $image->setLicense('http://opensource.org/licenses/mit-license.php');
         $image->setGeoLocation('France');
@@ -228,14 +228,14 @@ sprintf("\t\t<video:expiration_date>%s</video:expiration_date>\n", $this->dateFo
         $url->addImage($image);
 
         $this->assertEquals("<url>\n".
-"\t<loc>http://www.google.fr</loc>\n".
+"\t<loc>http://www.google.fr/?s=joe&quot;</loc>\n".
 "\t<changefreq>never</changefreq>\n".
 "\t<priority>0.2</priority>\n".
 "\t<image:image>\n".
 "\t\t<image:loc>http://www.example.com/thumbs/123.jpg</image:loc>\n".
 "\t\t<image:caption>Some caption</image:caption>\n".
 "\t\t<image:geo_location>France</image:geo_location>\n".
-"\t\t<image:title>Grilling steaks for summer</image:title>\n".
+"\t\t<image:title>Grilling steaks for &quot;summer&quot;</image:title>\n".
 "\t\t<image:license>http://opensource.org/licenses/mit-license.php</image:license>\n".
 "\t</image:image>\n".
 "</url>\n", $formatter->formatUrl($url));
