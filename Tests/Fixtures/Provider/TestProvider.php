@@ -2,7 +2,6 @@
 
 namespace KPhoen\SitemapBundle\Tests\Fixtures\Provider;
 
-use KPhoen\SitemapBundle\Entity\Image;
 use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\Video;
 use KPhoen\SitemapBundle\Provider\ProviderInterface;
