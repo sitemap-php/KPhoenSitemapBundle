@@ -436,7 +436,7 @@ class Video
     public function setPlatforms($platforms)
     {
         if ($platforms === null) {
-            $this->platform = null;
+            $this->platforms = null;
             return $this;
         }
 
