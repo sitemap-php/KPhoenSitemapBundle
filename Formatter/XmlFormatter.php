@@ -11,9 +11,10 @@ class XmlFormatter extends BaseFormatter implements FormatterInterface
 {
     public function getSitemapStart()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
-              'xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" '.
-              'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset '.
+               'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
+               'xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" '.
+               'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
     }
 
     public function getSitemapEnd()
@@ -23,9 +24,12 @@ class XmlFormatter extends BaseFormatter implements FormatterInterface
 
     public function formatUrl(Url $url)
     {
-        $buffer = '<url>' . "\n";
+        return '<url>' . "\n" . $this->formatBody($url) . '</url>' . "\n";
+    }
 
-        $buffer .= "\t" . '<loc>' . $this->escape($url->getLoc()) . '</loc>' . "\n";
+    protected function formatBody(Url $url)
+    {
+        $buffer = "\t" . '<loc>' . $this->escape($url->getLoc()) . '</loc>' . "\n";
 
         if ($url->getLastmod() !== null) {
             $buffer .= "\t" . '<lastmod>' . $this->escape($url->getLastmod()) .'</lastmod>' . "\n";
@@ -47,7 +51,7 @@ class XmlFormatter extends BaseFormatter implements FormatterInterface
             $buffer .= $this->formatImage($image);
         }
 
-        return $buffer . '</url>' . "\n";
+        return $buffer;
     }
 
     protected function formatVideo(Video $video)

@@ -19,34 +19,35 @@ class TestableXmlFormatter extends XmlFormatter
 
 class XmlFormatterTest extends \PHPUnit_Framework_TestCase
 {
+    protected $formatter;
+
+    protected function setUp()
+    {
+        $this->formatter = new XmlFormatter();
+    }
+
     public function testSitemapStart()
     {
-        $formatter = new XmlFormatter();
-        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n", $formatter->getSitemapStart());
+        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n", $this->formatter->getSitemapStart());
     }
 
     public function testSitemapEnd()
     {
-        $formatter = new XmlFormatter();
-        $this->assertEquals('</urlset>', $formatter->getSitemapEnd());
+        $this->assertEquals('</urlset>', $this->formatter->getSitemapEnd());
     }
 
     public function testFormatUrlOnlyLoc()
     {
-        $formatter = new XmlFormatter();
-
         $url = new Url();
         $url->setLoc('http://www.google.fr');
 
         $this->assertEquals("<url>\n".
 "\t<loc>http://www.google.fr</loc>\n".
-"</url>\n", $formatter->formatUrl($url));
+"</url>\n", $this->formatter->formatUrl($url));
     }
 
     public function testFormatUrl()
     {
-        $formatter = new XmlFormatter();
-
         $url = new Url();
         $url->setLoc('http://www.google.fr');
         $url->setPriority(0.2);
@@ -56,13 +57,11 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
 "\t<loc>http://www.google.fr</loc>\n".
 "\t<changefreq>never</changefreq>\n".
 "\t<priority>0.2</priority>\n".
-"</url>\n", $formatter->formatUrl($url));
+"</url>\n", $this->formatter->formatUrl($url));
     }
 
     public function testFormatUrlWithVideo()
     {
-        $formatter = new XmlFormatter();
-
         $url = new Url();
         $url->setLoc('http://www.google.fr');
         $url->setPriority(0.2);
@@ -90,13 +89,11 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
 "\t\t<video:player_loc allow_embed=\"yes\" autoplay=\"ap=1\">http://www.example.com/videoplayer.swf?video=123</video:player_loc>\n".
 "\t\t<video:duration>600</video:duration>\n".
 "\t</video:video>\n".
-"</url>\n", $formatter->formatUrl($url));
+"</url>\n", $this->formatter->formatUrl($url));
     }
 
     public function testFormatUrlWithImage()
     {
-        $formatter = new XmlFormatter();
-
         $url = new Url();
         $url->setLoc('http://www.google.fr');
         $url->setPriority(0.2);
@@ -116,13 +113,11 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
 "\t\t<image:loc>http://www.example.com/thumbs/123.jpg</image:loc>\n".
 "\t\t<image:title>Grilling steaks for summer</image:title>\n".
 "\t</image:image>\n".
-"</url>\n", $formatter->formatUrl($url));
+"</url>\n", $this->formatter->formatUrl($url));
     }
 
     public function testFormatUrlWithVideos()
     {
-        $formatter = new XmlFormatter();
-
         $url = new Url();
         $url->setLoc('http://www.google.fr');
         $url->setPriority(0.2);
@@ -154,7 +149,7 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
 "\t\t<video:description>Alkis shows you how to get perfectly done steaks every time - 2</video:description>\n".
 "\t\t<video:thumbnail_loc>http://www.example.com/thumbs/456.jpg</video:thumbnail_loc>\n".
 "\t</video:video>\n".
-"</url>\n", $formatter->formatUrl($url));
+"</url>\n", $this->formatter->formatUrl($url));
     }
 
     public function testFormatFullVideo()
@@ -211,8 +206,6 @@ sprintf("\t\t<video:expiration_date>%s</video:expiration_date>\n", $this->dateFo
 
     public function testFormatUrlWithFullImage()
     {
-        $formatter = new XmlFormatter();
-
         $url = new Url();
         $url->setLoc('http://www.google.fr/?s=joe"');
         $url->setPriority(0.2);
@@ -238,7 +231,7 @@ sprintf("\t\t<video:expiration_date>%s</video:expiration_date>\n", $this->dateFo
 "\t\t<image:title>Grilling steaks for &quot;summer&quot;</image:title>\n".
 "\t\t<image:license>http://opensource.org/licenses/mit-license.php</image:license>\n".
 "\t</image:image>\n".
-"</url>\n", $formatter->formatUrl($url));
+"</url>\n", $this->formatter->formatUrl($url));
     }
 
 
