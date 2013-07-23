@@ -90,7 +90,11 @@ class Sitemap
             $provider->populate($this);
         }
 
-        $this->dumper->dump($this->formatter->getSitemapEnd());
+        $sitemapContent = $this->dumper->dump($this->formatter->getSitemapEnd());
+
+        if (!$this->isSitemapIndexable()) {
+            return $sitemapContent;
+        }
 
         if (count($this->sitemapIndexs)) {
             $this->dumper->setFilename($this->originalFilename);
