@@ -8,7 +8,7 @@ namespace KPhoen\SitemapBundle\Dumper;
  *
  * @see KPhoen\SitemapBundle\Dumper\GzFileDumper
  */
-class FileDumper implements DumperInterface
+class FileDumper implements DumperFileInterface
 {
     protected $filename = null;
     protected $handle = null;
@@ -27,6 +27,38 @@ class FileDumper implements DumperInterface
     /**
      * {@inheritdoc}
      */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setFilename($filename)
+    {
+        if ($this->handle !== null) {
+            fclose($this->handle);
+            $this->handle = null;
+        }
+
+        $this->filename = $filename;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clearHandle()
+    {
+        if ($this->handle !== null) {
+            fclose($this->handle);
+            $this->handle = null;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function dump($string)
     {
         if ($this->handle == null) {
@@ -35,6 +67,8 @@ class FileDumper implements DumperInterface
 
         fwrite($this->handle, $string);
     }
+
+
 
     protected function openFile()
     {
