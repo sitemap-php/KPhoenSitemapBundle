@@ -30,7 +30,7 @@ services:
 
     sitemap:
         class:      KPhoen\SitemapBundle\Sitemap\Sitemap
-        arguments:  [ @sitemap_gz_dumper, @sitemap_text_formatter, %sitemap.config.base_host% ]
+        arguments:  [ @sitemap_gz_dumper, @sitemap_text_formatter, %sitemap.config.base_host%, %sitemap.config.base_host_sitemap%, %sitemap.config.limit% ]
 ```
 
 ### Images and videos
