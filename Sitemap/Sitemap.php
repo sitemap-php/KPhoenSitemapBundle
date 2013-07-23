@@ -184,7 +184,7 @@ class Sitemap
     {
         $sitemapIndexFilename = $this->getSitemapIndexFilename($this->originalFilename);
         $sitemapIndex = new SitemapIndex();
-        $loc = '/'.basename($sitemapIndexFilename);
+        $loc = DIRECTORY_SEPARATOR . basename($sitemapIndexFilename);
         if ($this->base_host_sitemap !== null) {
             $sitemapIndex->setLoc($this->base_host_sitemap.$loc);
         }
@@ -221,8 +221,17 @@ class Sitemap
 
     protected function getSitemapIndexFilename($filename)
     {
+        $sitemapIndexFilename = basename($filename);
         $index = count($this->sitemapIndexs) + 1;
+        $extPosition = strrpos($sitemapIndexFilename, ".");
+        if ($extPosition !== false) {
+            $sitemapIndexFilename = substr($sitemapIndexFilename, 0, $extPosition).'-'.$index.substr($sitemapIndexFilename, $extPosition);
+        } else {
+            $sitemapIndexFilename .= '-'.$index;
+        }
 
-        return $filename.'-'.$index;
+        $sitemapIndexFilename = dirname($filename) . DIRECTORY_SEPARATOR . $sitemapIndexFilename;
+
+        return $sitemapIndexFilename;
     }
 }
