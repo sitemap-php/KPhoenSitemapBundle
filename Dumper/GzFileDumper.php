@@ -37,6 +37,7 @@ class GzFileDumper implements DumperFileInterface
      */
     public function setFilename($filename)
     {
+        $this->clearHandle();
         $this->filename = $filename;
     }
 
@@ -46,7 +47,7 @@ class GzFileDumper implements DumperFileInterface
     public function clearHandle()
     {
         if ($this->handle !== null) {
-            fclose($this->handle);
+            gzclose($this->handle);
             $this->handle = null;
         }
     }
@@ -74,9 +75,7 @@ class GzFileDumper implements DumperFileInterface
 
     public function __destruct()
     {
-        if ($this->handle !== null) {
-            gzclose($this->handle);
-        }
+        $this->clearHandle();
     }
 }
 

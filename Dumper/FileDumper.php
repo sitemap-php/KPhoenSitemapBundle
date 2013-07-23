@@ -37,11 +37,7 @@ class FileDumper implements DumperFileInterface
      */
     public function setFilename($filename)
     {
-        if ($this->handle !== null) {
-            fclose($this->handle);
-            $this->handle = null;
-        }
-
+        $this->clearHandle();
         $this->filename = $filename;
     }
 
@@ -81,8 +77,6 @@ class FileDumper implements DumperFileInterface
 
     public function __destruct()
     {
-        if ($this->handle !== null) {
-            fclose($this->handle);
-        }
+        $this->clearHandle();
     }
 }
