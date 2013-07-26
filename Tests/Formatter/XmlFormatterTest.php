@@ -5,6 +5,7 @@ namespace KPhoen\SitemapBundle\Tests\Formatter;
 use KPhoen\SitemapBundle\Entity\Image;
 use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\Video;
+use KPhoen\SitemapBundle\Entity\SitemapIndex;
 use KPhoen\SitemapBundle\Formatter\XmlFormatter;
 
 
@@ -34,6 +35,16 @@ class XmlFormatterTest extends \PHPUnit_Framework_TestCase
     public function testSitemapEnd()
     {
         $this->assertEquals('</urlset>', $this->formatter->getSitemapEnd());
+    }
+
+    public function testSitemapIndexStart()
+    {
+        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n".'<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n", $this->formatter->getSitemapIndexStart());
+    }
+
+    public function testSitemapIndexEnd()
+    {
+        $this->assertEquals('</sitemapindex>', $this->formatter->getSitemapIndexEnd());
     }
 
     public function testFormatUrlOnlyLoc()
@@ -232,6 +243,18 @@ sprintf("\t\t<video:expiration_date>%s</video:expiration_date>\n", $this->dateFo
 "\t\t<image:license>http://opensource.org/licenses/mit-license.php</image:license>\n".
 "\t</image:image>\n".
 "</url>\n", $this->formatter->formatUrl($url));
+    }
+
+    public function testFormatSitemapIndex()
+    {
+        $sitemapIndex = new SitemapIndex();
+        $sitemapIndex->setLoc('http://www.example.com/sitemap-1.xml');
+        $sitemapIndex->setLastMod(new \DateTime('2013-07-26 23:42:00'));
+
+        $this->assertEquals("<sitemap>\n".
+"\t<loc>http://www.example.com/sitemap-1.xml</loc>\n".
+"\t<lastmod>2013-07-26T23:42:00+02:00</lastmod>\n".
+"</sitemap>\n", $this->formatter->formatSitemapIndex($sitemapIndex));
     }
 
 
