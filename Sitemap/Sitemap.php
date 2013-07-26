@@ -7,6 +7,7 @@ use KPhoen\SitemapBundle\Dumper\DumperFileInterface;
 use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\SitemapIndex;
 use KPhoen\SitemapBundle\Formatter\FormatterInterface;
+use KPhoen\SitemapBundle\Formatter\SitemapIndexFormatterInterface;
 use KPhoen\SitemapBundle\Provider\ProviderInterface;
 
 
