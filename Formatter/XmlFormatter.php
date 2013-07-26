@@ -5,9 +5,10 @@ namespace KPhoen\SitemapBundle\Formatter;
 use KPhoen\SitemapBundle\Entity\Image;
 use KPhoen\SitemapBundle\Entity\Url;
 use KPhoen\SitemapBundle\Entity\Video;
+use KPhoen\SitemapBundle\Entity\SitemapIndex;
 
 
-class XmlFormatter extends BaseFormatter implements FormatterInterface
+class XmlFormatter extends BaseFormatter implements SitemapIndexFormatterInterface
 {
     public function getSitemapStart()
     {
@@ -20,6 +21,16 @@ class XmlFormatter extends BaseFormatter implements FormatterInterface
     public function getSitemapEnd()
     {
         return '</urlset>';
+    }
+
+    public function getSitemapIndexStart()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    }
+
+    public function getSitemapIndexEnd()
+    {
+        return '</sitemapindex>';
     }
 
     public function formatUrl(Url $url)
@@ -49,6 +60,22 @@ class XmlFormatter extends BaseFormatter implements FormatterInterface
 
         foreach ($url->getImages() as $image) {
             $buffer .= $this->formatImage($image);
+        }
+
+        return $buffer;
+    }
+
+    public function formatSitemapIndex(SitemapIndex $sitemapIndex)
+    {
+        return '<sitemap>' . "\n" . $this->formatSitemapIndexBody($sitemapIndex) . '</sitemap>' . "\n";
+    }
+
+    protected function formatSitemapIndexBody(SitemapIndex $sitemapIndex)
+    {
+        $buffer = "\t" . '<loc>' . $this->escape($sitemapIndex->getLoc()) . '</loc>' . "\n";
+
+        if ($sitemapIndex->getLastmod() !== null) {
+            $buffer .= "\t" . '<lastmod>' . $this->escape($sitemapIndex->getLastmod()) .'</lastmod>' . "\n";
         }
 
         return $buffer;
