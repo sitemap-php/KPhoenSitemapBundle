@@ -8,7 +8,7 @@ use KPhoen\SitemapBundle\Entity\Video;
 use KPhoen\SitemapBundle\Entity\SitemapIndex;
 
 
-class XmlFormatter extends BaseFormatter implements FormatterInterface
+class XmlFormatter extends BaseFormatter implements SitemapIndexFormatterInterface
 {
     public function getSitemapStart()
     {
@@ -70,7 +70,7 @@ class XmlFormatter extends BaseFormatter implements FormatterInterface
         return '<sitemap>' . "\n" . $this->formatSitemapIndexBody($sitemapIndex) . '</sitemap>' . "\n";
     }
 
-    public function formatSitemapIndexBody(SitemapIndex $sitemapIndex)
+    protected function formatSitemapIndexBody(SitemapIndex $sitemapIndex)
     {
         $buffer = "\t" . '<loc>' . $this->escape($sitemapIndex->getLoc()) . '</loc>' . "\n";
 

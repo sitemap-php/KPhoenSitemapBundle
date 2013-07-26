@@ -78,4 +78,3 @@ class GzFileDumper implements DumperFileInterface
         $this->clearHandle();
     }
 }
-

@@ -64,8 +64,6 @@ class FileDumper implements DumperFileInterface
         fwrite($this->handle, $string);
     }
 
-
-
     protected function openFile()
     {
         $this->handle = fopen($this->filename, 'w');

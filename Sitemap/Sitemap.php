@@ -26,8 +26,8 @@ class Sitemap
     protected $dumper = null;
     protected $formatter = null;
     protected $base_host = null;
-    protected $limit = null;
-    protected $sitemapIndexs = array();
+    protected $limit = 0;
+    protected $sitemapIndexes = array();
     protected $originalFilename = null;
 
 
@@ -38,7 +38,7 @@ class Sitemap
      * @param FormatterInterface $formatter The formatter to use.
      * @param string $base_host The base URl for all the links (well only be used for relative URLs).
      */
-    public function __construct(DumperInterface $dumper, FormatterInterface $formatter, $base_host = null, $base_host_sitemap = null, $limit = null)
+    public function __construct(DumperInterface $dumper, FormatterInterface $formatter, $base_host = null, $base_host_sitemap = null, $limit = 0)
     {
         $this->dumper = $dumper;
         $this->formatter = $formatter;
@@ -47,7 +47,6 @@ class Sitemap
         $this->limit = $limit;
         if ($this->isSitemapIndexable()) {
             $this->originalFilename = $dumper->getFilename();
-            $this->addSitemapIndex($this->createSitemapIndex());
         }
     }
 
@@ -84,6 +83,10 @@ class Sitemap
      */
     public function build()
     {
+        if ($this->isSitemapIndexable()) {
+            $this->addSitemapIndex($this->createSitemapIndex());
+        }
+
         $this->dumper->dump($this->formatter->getSitemapStart());
 
         foreach ($this->providers as $provider) {
@@ -96,10 +99,10 @@ class Sitemap
             return $sitemapContent;
         }
 
-        if (count($this->sitemapIndexs)) {
+        if (count($this->sitemapIndexes)) {
             $this->dumper->setFilename($this->originalFilename);
             $this->dumper->dump($this->formatter->getSitemapIndexStart());
-            foreach ($this->sitemapIndexs as $sitemapIndex) {
+            foreach ($this->sitemapIndexes as $sitemapIndex) {
                 $this->dumper->dump($this->formatter->formatSitemapIndex($sitemapIndex));
             }
 
@@ -181,7 +184,7 @@ class Sitemap
 
     protected function isSitemapIndexable()
     {
-        return ($this->limit > 0 && $this->dumper instanceof DumperFileInterface);
+        return ($this->limit > 0 && $this->dumper instanceof DumperFileInterface && $this->formatter instanceof SitemapIndexFormatterInterface);
     }
 
     protected function createSitemapIndex()
@@ -200,18 +203,18 @@ class Sitemap
 
     protected function addSitemapIndex(SitemapIndex $sitemapIndex)
     {
-        $nbSitemapIndexs = count($this->sitemapIndexs);
+        $nbSitemapIndexs = count($this->sitemapIndexes);
 
         if ($nbSitemapIndexs > 0) {
             // Close tag of the previous sitemapIndex
             $this->dumper->dump($this->formatter->getSitemapEnd());
         }
 
-        // Modify the filename of the dumper, add the filename to the sitemapIndexs
+        // Modify the filename of the dumper, add the filename to the sitemap indexes
         $sitemapIndexFilename = $this->getSitemapIndexFilename($this->originalFilename);
         $this->dumper->setFilename($sitemapIndexFilename);
 
-        $this->sitemapIndexs[] = $sitemapIndex;
+        $this->sitemapIndexes[] = $sitemapIndex;
         if ($nbSitemapIndexs > 0) {
             // Start tag of the new sitemapIndex
             $this->dumper->dump($this->formatter->getSitemapStart());
@@ -220,13 +223,13 @@ class Sitemap
 
     protected function getCurrentSitemapIndex()
     {
-        return end($this->sitemapIndexs);
+        return end($this->sitemapIndexes);
     }
 
     protected function getSitemapIndexFilename($filename)
     {
         $sitemapIndexFilename = basename($filename);
-        $index = count($this->sitemapIndexs) + 1;
+        $index = count($this->sitemapIndexes) + 1;
         $extPosition = strrpos($sitemapIndexFilename, ".");
         if ($extPosition !== false) {
             $sitemapIndexFilename = substr($sitemapIndexFilename, 0, $extPosition).'-'.$index.substr($sitemapIndexFilename, $extPosition);

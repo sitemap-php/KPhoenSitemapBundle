@@ -31,7 +31,12 @@ class SitemapIndex
      */
     protected $lastmod = null;
 
-    protected $urlCount = null;
+    /**
+     * The current number of url indexed in the sitemap
+     *
+     * @var integer
+     */
+    protected $urlCount = 0;
 
 
     /**
