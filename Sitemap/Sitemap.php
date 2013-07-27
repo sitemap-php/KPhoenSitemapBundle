@@ -3,8 +3,11 @@
 namespace KPhoen\SitemapBundle\Sitemap;
 
 use KPhoen\SitemapBundle\Dumper\DumperInterface;
+use KPhoen\SitemapBundle\Dumper\DumperFileInterface;
 use KPhoen\SitemapBundle\Entity\Url;
+use KPhoen\SitemapBundle\Entity\SitemapIndex;
 use KPhoen\SitemapBundle\Formatter\FormatterInterface;
+use KPhoen\SitemapBundle\Formatter\SitemapIndexFormatterInterface;
 use KPhoen\SitemapBundle\Provider\ProviderInterface;
 
 
@@ -24,6 +27,9 @@ class Sitemap
     protected $dumper = null;
     protected $formatter = null;
     protected $base_host = null;
+    protected $limit = 0;
+    protected $sitemapIndexes = array();
+    protected $originalFilename = null;
 
 
     /**
@@ -33,11 +39,16 @@ class Sitemap
      * @param FormatterInterface $formatter The formatter to use.
      * @param string $base_host The base URl for all the links (well only be used for relative URLs).
      */
-    public function __construct(DumperInterface $dumper, FormatterInterface $formatter, $base_host = null)
+    public function __construct(DumperInterface $dumper, FormatterInterface $formatter, $base_host = null, $base_host_sitemap = null, $limit = 0)
     {
         $this->dumper = $dumper;
         $this->formatter = $formatter;
         $this->base_host = $base_host;
+        $this->base_host_sitemap = $base_host_sitemap;
+        $this->limit = $limit;
+        if ($this->isSitemapIndexable()) {
+            $this->originalFilename = $dumper->getFilename();
+        }
     }
 
     /**
@@ -73,13 +84,31 @@ class Sitemap
      */
     public function build()
     {
+        if ($this->isSitemapIndexable()) {
+            $this->addSitemapIndex($this->createSitemapIndex());
+        }
+
         $this->dumper->dump($this->formatter->getSitemapStart());
 
         foreach ($this->providers as $provider) {
             $provider->populate($this);
         }
 
-        return $this->dumper->dump($this->formatter->getSitemapEnd());
+        $sitemapContent = $this->dumper->dump($this->formatter->getSitemapEnd());
+
+        if (!$this->isSitemapIndexable()) {
+            return $sitemapContent;
+        }
+
+        if (count($this->sitemapIndexes)) {
+            $this->dumper->setFilename($this->originalFilename);
+            $this->dumper->dump($this->formatter->getSitemapIndexStart());
+            foreach ($this->sitemapIndexes as $sitemapIndex) {
+                $this->dumper->dump($this->formatter->formatSitemapIndex($sitemapIndex));
+            }
+
+            $this->dumper->dump($this->formatter->getSitemapIndexEnd());
+        }
     }
 
     /**
@@ -91,6 +120,10 @@ class Sitemap
      */
     public function add(Url $url)
     {
+        if ($this->isSitemapIndexable() && $this->getCurrentSitemapIndex()->getUrlCount() >= $this->limit) {
+            $this->addSitemapIndex($this->createSitemapIndex());
+        }
+
         $loc = $url->getLoc();
         if (empty($loc)) {
             throw new \InvalidArgumentException('The url MUST have a loc attribute');
@@ -134,6 +167,10 @@ class Sitemap
 
         $this->dumper->dump($this->formatter->formatUrl($url));
 
+        if ($this->isSitemapIndexable()) {
+            $this->getCurrentSitemapIndex()->incrementUrl();
+        }
+
         return $this;
     }
 
@@ -144,5 +181,65 @@ class Sitemap
         }
 
         return substr($url, 0, 4) !== 'http';
+    }
+
+    protected function isSitemapIndexable()
+    {
+        return ($this->limit > 0 && $this->dumper instanceof DumperFileInterface && $this->formatter instanceof SitemapIndexFormatterInterface);
+    }
+
+    protected function createSitemapIndex()
+    {
+        $sitemapIndexFilename = $this->getSitemapIndexFilename($this->originalFilename);
+        $sitemapIndex = new SitemapIndex();
+        $loc = DIRECTORY_SEPARATOR . basename($sitemapIndexFilename);
+        if ($this->base_host_sitemap !== null) {
+            $sitemapIndex->setLoc($this->base_host_sitemap.$loc);
+        }
+
+        $sitemapIndex->setLastMod(new \DateTime());
+
+        return $sitemapIndex;
+    }
+
+    protected function addSitemapIndex(SitemapIndex $sitemapIndex)
+    {
+        $nbSitemapIndexs = count($this->sitemapIndexes);
+
+        if ($nbSitemapIndexs > 0) {
+            // Close tag of the previous sitemapIndex
+            $this->dumper->dump($this->formatter->getSitemapEnd());
+        }
+
+        // Modify the filename of the dumper, add the filename to the sitemap indexes
+        $sitemapIndexFilename = $this->getSitemapIndexFilename($this->originalFilename);
+        $this->dumper->setFilename($sitemapIndexFilename);
+
+        $this->sitemapIndexes[] = $sitemapIndex;
+        if ($nbSitemapIndexs > 0) {
+            // Start tag of the new sitemapIndex
+            $this->dumper->dump($this->formatter->getSitemapStart());
+        }
+    }
+
+    protected function getCurrentSitemapIndex()
+    {
+        return end($this->sitemapIndexes);
+    }
+
+    protected function getSitemapIndexFilename($filename)
+    {
+        $sitemapIndexFilename = basename($filename);
+        $index = count($this->sitemapIndexes) + 1;
+        $extPosition = strrpos($sitemapIndexFilename, ".");
+        if ($extPosition !== false) {
+            $sitemapIndexFilename = substr($sitemapIndexFilename, 0, $extPosition).'-'.$index.substr($sitemapIndexFilename, $extPosition);
+        } else {
+            $sitemapIndexFilename .= '-'.$index;
+        }
+
+        $sitemapIndexFilename = dirname($filename) . DIRECTORY_SEPARATOR . $sitemapIndexFilename;
+
+        return $sitemapIndexFilename;
     }
 }
