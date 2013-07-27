@@ -5,7 +5,7 @@ namespace KPhoen\SitemapBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-use KPhoen\SitemapBundle\Dumper\MemoryDumper;
+use SitemapGenerator\Dumper\MemoryDumper;
 
 
 class SitemapController extends Controller

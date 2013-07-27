@@ -2,10 +2,10 @@
 
 namespace KPhoen\SitemapBundle\Tests\Fixtures\Provider;
 
-use KPhoen\SitemapBundle\Entity\Url;
-use KPhoen\SitemapBundle\Entity\Video;
-use KPhoen\SitemapBundle\Provider\ProviderInterface;
-use KPhoen\SitemapBundle\Sitemap\Sitemap;
+use SitemapGenerator\Entity\Url;
+use SitemapGenerator\Entity\Video;
+use SitemapGenerator\Provider\ProviderInterface;
+use SitemapGenerator\Sitemap\Sitemap;
 
 
 class TestProvider implements ProviderInterface
