@@ -66,7 +66,7 @@ Here is how you would configure the provider:
 parameters:
   propel_providers_options:
     model:      ACME\DemoBundle\Model\News
-    /news/{id}
+    # /news/{id}
     loc:        {route: news_show, params: {id: slug}}
     # the following parameters are optionnal
     filters:    ['filterByIsValid']
@@ -76,8 +76,36 @@ parameters:
 
 services:
     sitemap_propel_provider:
-        class: KPhoen\SitemapBundle\Provider\PropelProvider
-        arguments: [ @router, %propel_providers_options% ]
+        class:      SitemapGenerator\Provider\PropelProvider
+        arguments:  [ @router, %propel_providers_options% ]
+        tags:
+            -  { name: sitemap.provider }
+```
+
+
+#### Doctrine provider
+
+A doctrine provider is included in the bundle. It allows to populate a sitemap
+with the content of a table.
+
+Here is how you would configure the provider:
+
+```yml
+parameters:
+  doctrine_providers_options:
+    entity:         AcmeDemoBundle:News
+    # /news/{id}
+    loc:            {route: news_show, params: {id: slug}}
+    query_method:   findValidQuery
+    # the following parameters are optionnal
+    lastmod:        updatedAt
+    changefreq:     daily
+    priority:       0.2
+
+services:
+    sitemap_doctrine_provider:
+        class:      SitemapGenerator\Provider\DoctrineProvider
+        arguments:  [ @doctrine.orm.entity_manager, @router, %doctrine_providers_options% ]
         tags:
             -  { name: sitemap.provider }
 ```
