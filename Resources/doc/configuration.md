@@ -17,11 +17,11 @@ Exemple provider:
 ```php
 <?php
 
-namespace KPhoen\SitemapBundle\Provider;
+namespace SitemapGenerator\Provider;
 
-use KPhoen\SitemapBundle\Entity\Url;
-use KPhoen\SitemapBundle\Provider\ProviderInterface;
-use KPhoen\SitemapBundle\Sitemap\Sitemap;
+use SitemapGenerator\Entity\Url;
+use SitemapGenerator\Provider\ProviderInterface;
+use SitemapGenerator\Sitemap\Sitemap;
 
 
 class DummyProvider implements ProviderInterface
@@ -46,7 +46,7 @@ described in the DIC with the `sitemap.provider` tag:
 ```yml
 services:
     sitemap_dummy_provider:
-        class: KPhoen\SitemapBundle\Provider\DummyProvider
+        class: SitemapGenerator\Provider\DummyProvider
         tags:
             -  { name: sitemap.provider }
 ```
