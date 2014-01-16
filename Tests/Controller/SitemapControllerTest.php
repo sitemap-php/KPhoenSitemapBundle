@@ -13,7 +13,7 @@ class SitemapControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/sitemap.xml');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertCount(2, $crawler->filter('url'));
+        $this->assertCount(2, $crawler->filterXPath('//default:url'));
     }
 
     /**
@@ -26,24 +26,24 @@ class SitemapControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->assertEquals($loc, $crawler->filter('url')->eq($pos)->filter('loc')->text());
+        $this->assertEquals($loc, $crawler->filterXPath('//default:urlset/default:url')->eq($pos)->filterXPath('//default:loc')->text());
 
         if ($changefreq === null) {
-            $this->assertCount(0, $crawler->filter('url')->eq($pos)->filter('changefreq'));
+            $this->assertCount(0, $crawler->filterXPath('//default:url')->eq($pos)->filterXPath('//default:changefreq'));
         } else {
-            $this->assertEquals($changefreq, $crawler->filter('url')->eq($pos)->filter('changefreq')->text());
+            $this->assertEquals($changefreq, $crawler->filterXPath('//default:url')->eq($pos)->filterXPath('//default:changefreq')->text());
         }
 
         if ($priority === null) {
-            $this->assertCount(0, $crawler->filter('url')->eq($pos)->filter('priority'));
+            $this->assertCount(0, $crawler->filterXPath('//default:url')->eq($pos)->filterXPath('//default:priority'));
         } else {
-            $this->assertEquals($priority, $crawler->filter('url')->eq($pos)->filter('priority')->text());
+            $this->assertEquals($priority, $crawler->filterXPath('//default:url')->eq($pos)->filterXPath('//default:priority')->text());
         }
 
         if ($lastmod === null) {
-            $this->assertCount(0, $crawler->filter('url')->eq($pos)->filter('lastmod'));
+            $this->assertCount(0, $crawler->filterXPath('//default:url')->eq($pos)->filterXPath('//default:lastmod'));
         } else {
-            $this->assertEquals($lastmod, $crawler->filter('url')->eq($pos)->filter('lastmod')->text());
+            $this->assertEquals($lastmod, $crawler->filterXPath('//default:url')->eq($pos)->filterXPath('//default:lastmod')->text());
         }
     }
 
