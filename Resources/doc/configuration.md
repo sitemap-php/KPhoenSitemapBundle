@@ -110,6 +110,28 @@ services:
             -  { name: sitemap.provider }
 ```
 
+### Simple provider
+
+A provider to add static routes into the sitemap easily.
+
+```yml
+parameters:
+    simple_providers_options:
+        routes:
+            - {name: homepage}
+            - {name: foo, params: {foo: bar}, lastmod: '2015-01-01', changefreq: monthly, priority: 0.5}
+        # the following parameters are optionnal
+        lastmod:        '2015-01-01'
+        changefreq:     never
+        priority:       0.2
+
+services:
+    sitemap_simple_provider:
+        class:      SitemapGenerator\Provider\SimpleProvider
+        arguments:  [ @router, %simple_providers_options% ]
+        tags:
+            -  { name: sitemap.provider }
+```
 
 ## Next steps
 
