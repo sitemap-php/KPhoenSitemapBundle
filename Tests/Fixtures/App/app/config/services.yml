@@ -5,8 +5,8 @@ services:
             -  { name: sitemap.provider }
 
     sitemap_memory_dumper:
-        class:      SitemapGenerator\Dumper\MemoryDumper
+        class: SitemapGenerator\Dumper\MemoryDumper
 
     sitemap:
-        class:      SitemapGenerator\Sitemap\Sitemap
-        arguments:  [ @sitemap_memory_dumper, @sitemap_xml_formatter, %sitemap.config.base_host% ]
+        class: SitemapGenerator\Sitemap\Sitemap
+        arguments:  [ "@sitemap_memory_dumper", "@sitemap_xml_formatter", %sitemap.config.base_host% ]

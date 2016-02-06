@@ -2,8 +2,7 @@
 
 ### Composer
 
-Add `kphoen/sitemap-bundle` to your required field. Then install/update your
-dependencies.
+`composer require kphoen/sitemap-bundle`
 
 ### app/AppKernel.php
 
