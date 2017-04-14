@@ -7,7 +7,7 @@ you want (Doctrine, Propel, MongoDB, Faker, etc.).
 This bundle aims to generate standards compliant sitemaps. For more information
 about sitemaps go to [sitemaps.org](http://www.sitemaps.org/).
 
-The sitemap generation part is handled by the [SitemapGenerator](https://github.com/K-Phoen/SitemapGenerator)
+The sitemap generation part is handled by the [SitemapGenerator](https://github.com/sitemap-php/SitemapGenerator)
 library, this bundle eases its integration into a Symfony2 application.
 
 
