@@ -113,5 +113,5 @@ services:
 
 ## Next steps
 
-[Return to the index](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/index.md)
-or [go further](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/more.md)
+[Return to the index](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/doc/index.md)
+or [go further](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/doc/more.md)

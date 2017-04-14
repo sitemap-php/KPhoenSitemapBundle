@@ -53,4 +53,4 @@ This will make the sitemap available from the `/sitemap.xml` URL.
 
 ## Next steps
 
-[Return to the index](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/index.md) or [configure your sitemap](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/configuration.md)
+[Return to the index](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/doc/index.md) or [configure your sitemap](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/doc/configuration.md)
