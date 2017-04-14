@@ -1,4 +1,4 @@
-KPhoenSitemapBundle [![Build Status](https://travis-ci.org/K-Phoen/KPhoenSitemapBundle.png?branch=master)](https://travis-ci.org/K-Phoen/KPhoenSitemapBundle)
+KPhoenSitemapBundle [![Build Status](https://travis-ci.org/sitemap-php/KPhoenSitemapBundle.png?branch=master)](https://travis-ci.org/sitemap-php/KPhoenSitemapBundle)
 ===================
 
 The KPhoenSitemapBundle provides a way to create a xml sitemap using any source
@@ -26,14 +26,14 @@ Documentation
 
 The documentation can be found in the `Resources/doc/` directory.
 
-[Read the Documentation](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/index.md)
+[Read the Documentation](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/doc/index.md)
 
 Installation
 ------------
 
-All the installation instructions are in the [documentation](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/doc/installation.md).
+All the installation instructions are in the [documentation](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/doc/installation.md).
 
 License
 -------
 
-This bundle is under the [MIT](https://github.com/K-Phoen/KPhoenSitemapBundle/blob/master/Resources/meta/LICENCE) licence.
+This bundle is under the [MIT](https://github.com/sitemap-php/KPhoenSitemapBundle/blob/master/Resources/meta/LICENCE) licence.
