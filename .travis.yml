@@ -1,5 +1,11 @@
 language: php
 
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 php:
   - 5.3
   - 5.4
@@ -7,8 +13,14 @@ php:
   - 5.6
   - 7.0
 
-before_script:
-    - curl -s http://getcomposer.org/installer | php
-    - php composer.phar --dev install
+matrix:
+  fast_finish: true
 
-script: phpunit --coverage-text
+before_install:
+  - phpenv config-rm xdebug.ini || true
+  - composer self-update
+
+install:
+  - composer install --optimize-autoloader --no-interaction
+
+script: ./vendor/bin/phpunit
