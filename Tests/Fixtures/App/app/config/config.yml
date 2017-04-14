@@ -1,7 +1,7 @@
 framework:
     secret:          Hell yeah!
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-    form:            true
+    form:            false
     csrf_protection: true
     session:         ~
     default_locale:  en
