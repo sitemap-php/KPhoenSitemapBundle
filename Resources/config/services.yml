@@ -1,7 +1,7 @@
 services:
     sitemap_gz_dumper:
         class: SitemapGenerator\Dumper\GzFileDumper
-        arguments: [ %kernel.root_dir%/../web/sitemap.xml.gz ]
+        arguments: [ "%kernel.root_dir%/../web/sitemap.xml.gz" ]
 
     sitemap_xml_formatter:
         class: SitemapGenerator\Formatter\XmlFormatter
