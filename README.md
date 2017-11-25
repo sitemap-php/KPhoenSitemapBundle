@@ -1,4 +1,4 @@
-KPhoenSitemapBundle [![Build Status](https://travis-ci.org/sitemap-php/KPhoenSitemapBundle.png?branch=master)](https://travis-ci.org/sitemap-php/KPhoenSitemapBundle)
+KPhoenSitemapBundle [![Build Status](https://travis-ci.org/sitemap-php/KPhoenSitemapBundle.png?branch=2.x)](https://travis-ci.org/sitemap-php/KPhoenSitemapBundle)
 ===================
 
 The KPhoenSitemapBundle provides a way to create a xml sitemap using any source
