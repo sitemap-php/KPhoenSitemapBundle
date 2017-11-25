@@ -1,0 +1,36 @@
+
+VERSION 2  2.0.0 INITIAL RELEASE
+================================
+
+   Version 2.0 - 2.0.0 initial release
+      25/11/2017 13:29  2.0.0  initial release
+         bff1a5d Merge master and default config for RMT
+         4af8e70 Update release tool config
+         05d1b4b Update phpunit
+         094291d Fix travis badge
+         6c2d8be Do not test against lowest dependencies after all
+         41fd9ad Try to restrict symfony version for lowest-dependencies builds
+         cc5e82f Fix tests
+         46938aa Drop support for old PHP versions and raise Symfony min version to 2.8
+         16a691a Remove mentions of Propel
+         6a03f79 Merge pull request #7 from rcaillot/patch-1
+         d11ac42 Quoting service parameters to be sf3.1 compliant
+         dc8255a Remove PHP 5.3 from the tested versions
+         82b427c Add makefile
+         9b8e817 Improve travis-ci config
+         46f5d1d Also test against PHP 5.6 and 7.0
+         76616a4 Merge pull request #6 from rcaillot/patch-1
+         e1e36ae Fix links in the documentation
+         34dde63 Fix another broken link
+         58027ca Fix links in the readme
+         15544b1 Move the symfony/console dependency in the require section
+         ec923f0 Fix tests setup
+         8ff903c Quoting service parameters to be sf3.1 compliant
+         f303cc9 Really make the bundle Sf 3.0 compatible (and break a few things along the way)
+         dc43320 Fixed namespace references in tests
+         e577200 Added phpunit to the dev requirements
+         f82bbe2 Added php 5.5 to the test targets
+         704a854 Merge pull request #4 from fabienpomerol/patch-1
+         0294d06 Fixed old namespace in configuration doc
+         4234586 Added documentation about the DoctrineProvider
+         486ad2d Fix: typo in the readme
