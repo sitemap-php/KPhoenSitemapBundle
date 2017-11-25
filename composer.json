@@ -1,6 +1,6 @@
 {
     "name": "kphoen/sitemap-bundle",
-    "description": "Provides a way to create/generate a sitemap using Propel, Doctrine, etc.",
+    "description": "Provides a way to create/generate a sitemap using Doctrine, etc.",
     "keywords": ["sitemap", "command", "seo"],
     "type": "symfony-bundle",
     "license": "MIT",

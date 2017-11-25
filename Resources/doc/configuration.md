@@ -55,34 +55,6 @@ All the services tagged as `sitemap.provider` will be used to generate the
 sitemap.
 
 
-#### Propel provider
-
-A propel provider is included in the bundle. It allows to populate a sitemap
-with the content of a table.
-
-Here is how you would configure the provider:
-
-```yml
-parameters:
-  propel_providers_options:
-    model:      ACME\DemoBundle\Model\News
-    # /news/{id}
-    loc:        {route: news_show, params: {id: slug}}
-    # the following parameters are optionnal
-    filters:    ['filterByIsValid']
-    lastmod:    date
-    changefreq: daily
-    priority:   0.2
-
-services:
-    sitemap_propel_provider:
-        class:      SitemapGenerator\Provider\PropelProvider
-        arguments:  [ @router, %propel_providers_options% ]
-        tags:
-            -  { name: sitemap.provider }
-```
-
-
 #### Doctrine provider
 
 A doctrine provider is included in the bundle. It allows to populate a sitemap

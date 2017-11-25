@@ -2,7 +2,7 @@ KPhoenSitemapBundle [![Build Status](https://travis-ci.org/sitemap-php/KPhoenSit
 ===================
 
 The KPhoenSitemapBundle provides a way to create a xml sitemap using any source
-you want (Doctrine, Propel, MongoDB, Faker, etc.).
+you want (Doctrine, MongoDB, Faker, etc.).
 
 This bundle aims to generate standards compliant sitemaps. For more information
 about sitemaps go to [sitemaps.org](http://www.sitemaps.org/).
