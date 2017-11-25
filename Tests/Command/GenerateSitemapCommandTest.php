@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 use KPhoen\SitemapBundle\Command\GenerateSitemapCommand;
 
-
 class GenerateSitemapCommandTest extends WebTestCase
 {
     public function testSitemapNbUrls()
