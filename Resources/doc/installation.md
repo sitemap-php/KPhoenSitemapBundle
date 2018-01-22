@@ -40,7 +40,7 @@ k_phoen_sitemap:
 
 ### Routing
 
-If you don't want to use the console to generate the sitemap, immport the
+If you don't want to use the console to generate the sitemap, import the
 routes:
 
 ```yaml
