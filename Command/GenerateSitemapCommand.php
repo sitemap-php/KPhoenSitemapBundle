@@ -6,12 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 class GenerateSitemapCommand extends ContainerAwareCommand
 {
-    /**
-     * @see Command
-     */
     protected function configure()
     {
         $this
@@ -19,9 +15,6 @@ class GenerateSitemapCommand extends ContainerAwareCommand
             ->setName('sitemap:generate');
     }
 
-    /**
-     * @see Command
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $sitemap = $this->getContainer()->get('sitemap');

@@ -9,4 +9,5 @@ services:
 
     sitemap:
         class: SitemapGenerator\Sitemap\Sitemap
-        arguments:  [ "@sitemap_memory_dumper", "@sitemap_xml_formatter", %sitemap.config.base_host% ]
+        arguments: [ "@sitemap_memory_dumper", "@sitemap_xml_formatter", "%sitemap.config.base_host%" ]
+        public: true

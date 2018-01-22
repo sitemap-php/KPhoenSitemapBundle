@@ -23,10 +23,14 @@
         "symfony/translation": "^2.8|^3.0|^4.0 ",
         "symfony/validator": "^2.8|^3.0|^4.0 ",
         "symfony/browser-kit": "^2.8|^3.0|^4.0 ",
+        "symfony/var-dumper": "^2.8|^3.0|^4.0 ",
         "phpunit/phpunit": "^6.4"
     },
     "autoload": {
         "psr-4": { "KPhoen\\SitemapBundle\\": "" }
+    },
+    "autoload-dev": {
+        "classmap": [ "Tests/Fixtures/App/app/AppKernel.php" ]
     },
     "extra": {
         "branch-alias": {
