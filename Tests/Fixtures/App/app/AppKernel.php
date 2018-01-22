@@ -7,11 +7,11 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 
             new KPhoen\SitemapBundle\KPhoenSitemapBundle(),
-        );
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -19,17 +19,11 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config.yml');
     }
 
-    /**
-     * @return string
-     */
     public function getCacheDir()
     {
         return sys_get_temp_dir().'/KPhoenSitemapBundle/cache';
     }
 
-    /**
-     * @return string
-     */
     public function getLogDir()
     {
         return sys_get_temp_dir().'/KPhoenSitemapBundle/logs';

@@ -4,7 +4,6 @@ namespace KPhoen\SitemapBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-
 class SitemapControllerTest extends WebTestCase
 {
     public function testSitemapNbUrls()
@@ -49,10 +48,10 @@ class SitemapControllerTest extends WebTestCase
 
     public function urlsProvider()
     {
-        return array(
+        return [
             // (pos, loc, changefreq, priority, lastmod)
-            array(0, 'http://www.google.fr', 'never', null, '2012-12-19'), // changefreq is "never", so the time is skipped
-            array(1, 'http://github.com', 'always', 0.2, null),
-        );
+            [0, 'http://www.google.fr', 'never', null, '2012-12-19'], // changefreq is "never", so the time is skipped
+            [1, 'http://github.com', 'always', 0.2, null],
+        ];
     }
 }

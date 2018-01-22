@@ -23,7 +23,6 @@ use SitemapGenerator\Entity\Url;
 use SitemapGenerator\Provider\ProviderInterface;
 use SitemapGenerator\Sitemap\Sitemap;
 
-
 class DummyProvider implements ProviderInterface
 {
     public function populate(Sitemap $sitemap)

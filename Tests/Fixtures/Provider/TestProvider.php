@@ -7,7 +7,6 @@ use SitemapGenerator\Entity\Video;
 use SitemapGenerator\Provider\ProviderInterface;
 use SitemapGenerator\Sitemap\Sitemap;
 
-
 class TestProvider implements ProviderInterface
 {
     public function populate(Sitemap $sitemap)

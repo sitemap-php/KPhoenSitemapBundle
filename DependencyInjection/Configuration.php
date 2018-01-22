@@ -14,13 +14,13 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('base_host')->defaultValue(null)->end()
+                ->scalarNode('base_host')->defaultNull()->end()
             ->end()
             ->children()
-                ->scalarNode('base_host_sitemap')->defaultValue(null)->end()
+                ->scalarNode('base_host_sitemap')->defaultNull()->end()
             ->end()
             ->children()
-                ->scalarNode('limit')->defaultValue(null)->end()
+                ->scalarNode('limit')->defaultNull()->end()
             ->end();
 
         return $treeBuilder;
