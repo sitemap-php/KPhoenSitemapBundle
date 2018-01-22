@@ -19,4 +19,6 @@ before_install:
 install:
     - composer install --optimize-autoloader --no-interaction
 
-script: make tests
+script:
+    - make tests
+    - make rusty

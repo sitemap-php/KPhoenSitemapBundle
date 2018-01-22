@@ -8,14 +8,17 @@
 
 Register the `KPhoenSitemapBundle`:
 
-```php
-# app/AppKernel.php
-public function registerBundles()
+```php,no_execute
+// app/AppKernel.php
+class AppKernel extends Kernel
 {
-    $bundles = array(
-        // ...
-        new KPhoen\SitemapBundle\KPhoenSitemapBundle(),
-    );
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new KPhoen\SitemapBundle\KPhoenSitemapBundle(),
+        );
+    }
 }
 ```
 
