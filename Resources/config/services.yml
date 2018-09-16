@@ -1,13 +1,19 @@
 services:
     sitemap_gz_dumper:
         class: SitemapGenerator\Dumper\GzFileDumper
-        arguments: [ "%kernel.root_dir%/../web/sitemap.xml.gz" ]
+        arguments: [ "%sitemap.config.file%" ]
 
     sitemap_xml_formatter:
         class: SitemapGenerator\Formatter\XmlFormatter
 
+    sitemap_build_cmd:
+        class: KPhoen\SitemapBundle\Command\GenerateSitemapCommand
+        tags:
+        - { name: console.command }
+
     sitemap:
         class: SitemapGenerator\Sitemap\Sitemap
+        public: true
         arguments:
             - "@sitemap_gz_dumper"
             - "@sitemap_xml_formatter"

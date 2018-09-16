@@ -17,6 +17,7 @@ class KPhoenSitemapExtension extends Extension
         $container->setParameter('sitemap.config.base_host', $config['base_host']);
         $container->setParameter('sitemap.config.base_host_sitemap', $config['base_host_sitemap']);
         $container->setParameter('sitemap.config.limit', $config['limit']);
+        $container->setParameter('sitemap.config.file', $config['file']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

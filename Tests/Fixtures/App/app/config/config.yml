@@ -4,13 +4,10 @@ imports:
 framework:
     test: ~
     session: { storage_id: session.storage.filesystem }
-    secret:          Hell yeah!
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-    form:            false
-    csrf_protection: false
-    default_locale:  en
-    translator:      { fallback: en }
-    profiler:        { only_exceptions: false }
+    secret: Hell yeah!
+    router: { resource: "%kernel.root_dir%/config/routing.yml" }
+    default_locale: en
+    profiler: { only_exceptions: false }
 
 k_phoen_sitemap:
     base_host: http://localhost

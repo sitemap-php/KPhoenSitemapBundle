@@ -20,6 +20,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('base_host_sitemap')->defaultNull()->end()
             ->end()
             ->children()
+                ->scalarNode('file')->defaultValue("%kernel.root_dir%/../web/sitemap.xml.gz")->end()
+            ->end()
+            ->children()
                 ->scalarNode('limit')->defaultNull()->end()
             ->end();
 
