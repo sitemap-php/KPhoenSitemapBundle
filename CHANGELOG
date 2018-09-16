@@ -3,6 +3,14 @@ VERSION 2  2.0.0 INITIAL RELEASE
 ================================
 
    Version 2.0 - 2.0.0 initial release
+      16/09/2018 18:45  2.0.1  Fix Symfony 4 compatibility
+         1d54985 Fix command definition for Symfony 4
+         a068571 Use rusty to check code samples
+         608bd8b Little code cleaning
+         de2e7e0 Fix tests
+         6ac6c9e Merge pull request #12 from zapashcanon/2.x
+         7dc28bb Typo
+         46e52d6 Add php7 ready badge
       25/11/2017 13:29  2.0.0  initial release
          bff1a5d Merge master and default config for RMT
          4af8e70 Update release tool config
