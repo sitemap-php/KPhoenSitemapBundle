@@ -2,6 +2,7 @@
 
 namespace KPhoen\SitemapBundle\DependencyInjection\Compiler;
 
+use SitemapGenerator\Sitemap;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -11,13 +12,13 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class UrlProviderCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('sitemap')) {
+        if (!$container->hasDefinition(Sitemap::class)) {
             return;
         }
 
-        $definition = $container->getDefinition('sitemap');
+        $definition = $container->getDefinition(Sitemap::class);
 
         foreach ($container->findTaggedServiceIds('sitemap.provider') as $id => $attributes) {
             $definition->addMethodCall('addProvider', [new Reference($id)]);

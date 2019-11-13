@@ -1,4 +1,4 @@
-sitemap:
+k_phoen_sitemap_sitemap:
     path: /sitemap.xml
-    defaults: { _controller: KPhoenSitemapBundle:Sitemap:sitemap }
+    defaults: { _controller: KPhoen\SitemapBundle\Controller\SitemapController }
     methods: [ GET ]

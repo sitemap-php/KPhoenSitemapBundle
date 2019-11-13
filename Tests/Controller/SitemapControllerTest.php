@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SitemapControllerTest extends WebTestCase
 {
-    public function testSitemapNbUrls()
+    public function testSitemapNbUrls(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/sitemap.xml');
@@ -18,7 +18,7 @@ class SitemapControllerTest extends WebTestCase
     /**
      * @dataProvider urlsProvider
      */
-    public function testSitemapUrl($pos, $loc, $changefreq, $priority, $lastmod)
+    public function testSitemapUrl($pos, $loc, $changefreq, $priority, $lastmod): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/sitemap.xml');

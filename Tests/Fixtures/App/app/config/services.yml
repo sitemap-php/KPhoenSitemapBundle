@@ -1,13 +1,8 @@
 services:
-    sitemap_test_provider:
-        class: KPhoen\SitemapBundle\Tests\Fixtures\Provider\TestProvider
+    KPhoen\SitemapBundle\Tests\Fixtures\Provider\TestProvider:
         tags:
             -  { name: sitemap.provider }
 
-    sitemap_memory_dumper:
-        class: SitemapGenerator\Dumper\MemoryDumper
+    SitemapGenerator\Dumper\Memory:
 
-    sitemap:
-        class: SitemapGenerator\Sitemap\Sitemap
-        arguments: [ "@sitemap_memory_dumper", "@sitemap_xml_formatter", "%sitemap.config.base_host%" ]
-        public: true
+    SitemapGenerator\FileDumper: '@SitemapGenerator\Dumper\Memory'
