@@ -1,13 +1,12 @@
 imports:
+    - { resource: '../../../../../Resources/config/services.yml' }
     - { resource: services.yml }
 
 framework:
-    test: ~
-    session: { storage_id: session.storage.filesystem }
+    test: true
+    session: { storage_id: session.storage.mock_file }
     secret: Hell yeah!
-    router: { resource: "%kernel.root_dir%/config/routing.yml" }
-    default_locale: en
-    profiler: { only_exceptions: false }
+    router: { resource: "%kernel.project_dir%/Resources/config/routing.yml" }
 
 k_phoen_sitemap:
     base_host: http://localhost

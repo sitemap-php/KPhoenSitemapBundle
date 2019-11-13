@@ -1,22 +1,29 @@
 services:
-    sitemap_gz_dumper:
-        class: SitemapGenerator\Dumper\GzFileDumper
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    KPhoen\SitemapBundle\Command\GenerateSitemapCommand:
+        arguments:
+            $sitemap: '@SitemapGenerator\Sitemap'
+        tags:
+            - { name: console.command }
+
+    KPhoen\SitemapBundle\Controller\SitemapController:
+        public: true
+        tags: [ 'controller.service_arguments' ]
+
+    SitemapGenerator\Dumper\GzFile:
         arguments: [ "%sitemap.config.file%" ]
 
-    sitemap_xml_formatter:
-        class: SitemapGenerator\Formatter\XmlFormatter
+    SitemapGenerator\FileDumper: '@SitemapGenerator\Dumper\GzFile'
 
-    sitemap_build_cmd:
-        class: KPhoen\SitemapBundle\Command\GenerateSitemapCommand
-        tags:
-        - { name: console.command }
+    SitemapGenerator\Formatter\Xml:
 
-    sitemap:
-        class: SitemapGenerator\Sitemap\Sitemap
+    SitemapGenerator\SitemapFormatter: '@SitemapGenerator\Formatter\Xml'
+
+    SitemapGenerator\Sitemap:
         public: true
         arguments:
-            - "@sitemap_gz_dumper"
-            - "@sitemap_xml_formatter"
-            - "%sitemap.config.base_host%"
-            - "%sitemap.config.base_host_sitemap%"
-            - "%sitemap.config.limit%"
+            $dumper: '@SitemapGenerator\FileDumper'
+            $formatter: '@SitemapGenerator\SitemapFormatter'
